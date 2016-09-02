@@ -2494,16 +2494,8 @@ class Criteria
             $con = Propel::getServiceContainer()->getReadConnection($this->getDbName());
         }
 
-        $needsComplexCount = $this->getGroupByColumns()
-            || $this->getOffset()
-            || $this->getLimit() >= 0
-            || $this->getHaving()
-            || in_array(Criteria::DISTINCT, $this->getSelectModifiers())
-            || count($this->selectQueries) > 0
-        ;
-
         $params = [];
-        if ($needsComplexCount) {
+        if ($this->needsComplexCount()) {
             if ($this->needsSelectAliases()) {
                 if ($this->getHaving()) {
                     throw new LogicException('Propel cannot create a COUNT query when using HAVING and  duplicate column names in the SELECT part');
@@ -2527,6 +2519,16 @@ class Criteria
         }
 
         return $con->getDataFetcher($stmt);
+    }
+
+    public function needsComplexCount()
+    {
+        return $this->getGroupByColumns()
+            || $this->getOffset()
+            || $this->getLimit() >= 0
+            || $this->getHaving()
+            || in_array(Criteria::DISTINCT, $this->getSelectModifiers())
+            || count($this->selectQueries) > 0;
     }
 
     /**
