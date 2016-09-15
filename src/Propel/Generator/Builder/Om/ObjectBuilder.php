@@ -6343,6 +6343,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      * objects.
      *
      * @param  boolean \$deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
+     * @param  boolean \$makeNew Whether to reset autoincrement PKs and make the object new.
      * @return ".$this->getObjectClassName(true)." Clone of current object.
      * @throws PropelException
      */
