@@ -6346,12 +6346,12 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
      * @return ".$this->getObjectClassName(true)." Clone of current object.
      * @throws PropelException
      */
-    public function copy(\$deepCopy = false)
+    public function copy(\$deepCopy = false, \$makeNew = true)
     {
         // we use get_class(), because this might be a subclass
         \$clazz = get_class(\$this);
         " . $this->buildObjectInstanceCreationCode('$copyObj', '$clazz') . "
-        \$this->copyInto(\$copyObj, \$deepCopy);
+        \$this->copyInto(\$copyObj, \$deepCopy, \$makeNew);
 
         return \$copyObj;
     }
@@ -6418,7 +6418,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                     $script .= "
             \$relObj = \$this->get$afx();
             if (\$relObj) {
-                \$copyObj->set$afx(\$relObj->copy(\$deepCopy));
+                \$copyObj->set$afx(\$relObj->copy(\$deepCopy, \$makeNew));
             }
 ";
                 } else {
@@ -6426,7 +6426,7 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                     $script .= "
             foreach (\$this->get".$this->getRefFKPhpNameAffix($fk, true)."() as \$relObj) {
                 if (\$relObj !== \$this) {  // ensure that we don't try to copy a reference to ourselves
-                    \$copyObj->add".$this->getRefFKPhpNameAffix($fk)."(\$relObj->copy(\$deepCopy));
+                    \$copyObj->add".$this->getRefFKPhpNameAffix($fk)."(\$relObj->copy(\$deepCopy, \$makeNew));
                 }
             }
 ";
