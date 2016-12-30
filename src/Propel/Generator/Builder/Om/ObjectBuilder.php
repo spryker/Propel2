@@ -4550,10 +4550,16 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             foreach ($crossFKs->getIncomingForeignKey()->getColumnObjectsMapping() as $reference) {
                 $local   = $reference['local'];
                 $foreign = $reference['foreign'];
+                $value   = $reference['value'];
 
                 $idx = array_search($local, $crossPks, true);
-                $script .= "
+                if ($value) {
+                    $script .= "
+                        \$entryPk[$idx] = '$value';";
+                } else {
+                    $script .= "
                         \$entryPk[$idx] = \$this->get{$foreign->getPhpName()}();";
+                }
             }
 
             $combinationIdx = 0;
@@ -4561,10 +4567,16 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
                 foreach ($crossFK->getColumnObjectsMapping() as $reference) {
                     $local   = $reference['local'];
                     $foreign = $reference['foreign'];
+                    $value   = $reference['value'];
 
                     $idx = array_search($local, $crossPks, true);
-                    $script .= "
+                    if ($value) {
+                        $script .= "
+                        \$entryPk[$idx] = '$value';";
+                    } else {
+                        $script .= "
                         \$entryPk[$idx] = \$combination[$combinationIdx]->get{$foreign->getPhpName()}();";
+                    }
                 }
                 $combinationIdx++;
             }
@@ -4598,20 +4610,32 @@ abstract class ".$this->getUnqualifiedClassName().$parentClass." implements Acti
             foreach ($crossFKs->getIncomingForeignKey()->getColumnObjectsMapping() as $reference) {
                 $local   = $reference['local'];
                 $foreign = $reference['foreign'];
+                $value   = $reference['value'];
 
                 $idx = array_search($local, $crossPks, true);
-                $script .= "
+                if ($value) {
+                    $script .= "
+                        \$entryPk[$idx] = '$value';";
+                } else {
+                    $script .= "
                         \$entryPk[$idx] = \$this->get{$foreign->getPhpName()}();";
+                }
             }
 
             $crossFK = $crossFKs->getCrossForeignKeys()[0];
             foreach ($crossFK->getColumnObjectsMapping() as $reference) {
                 $local   = $reference['local'];
                 $foreign = $reference['foreign'];
+                $value   = $reference['value'];
 
                 $idx = array_search($local, $crossPks, true);
-                $script .= "
+                if ($value) {
+                    $script .= "
+                        \$entryPk[$idx] = '$value';";
+                } else {
+                    $script .= "
                         \$entryPk[$idx] = \$entry->get{$foreign->getPhpName()}();";
+                }
             }
 
             $script .= "
