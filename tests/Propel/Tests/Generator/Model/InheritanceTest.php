@@ -22,10 +22,7 @@ class InheritanceTest extends TestCase
 {
     public function testCreateNewInheritance()
     {
-        $column = $this
-            ->getMockBuilder('Propel\Generator\Model\Column')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $column = $this->createMock('Propel\Generator\Model\Column')
         ;
 
         $inheritance = new Inheritance();

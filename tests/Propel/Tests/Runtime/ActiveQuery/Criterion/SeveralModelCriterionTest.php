@@ -38,11 +38,9 @@ class SeveralModelCriterionTest extends BaseTestCase
         $this->assertEquals($expected, $params);
     }
 
-    /**
-     * @expectedException Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidValueException
-     */
     public function testAppendPsToThrowsExceptionWhenOneOfTheValuesIsNull()
     {
+        $this->expectException('Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidValueException');
         $cton = new SeveralModelCriterion(new Criteria(), 'A.COL BETWEEN ? AND ?', 'A.COL', ['foo', null]);
 
         $params = [];
@@ -50,11 +48,9 @@ class SeveralModelCriterionTest extends BaseTestCase
         $cton->appendPsTo($ps, $params);
     }
 
-    /**
-     * @expectedException Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidValueException
-     */
     public function testAppendPsToThrowsExceptionWhenTheValueIsNull()
     {
+        $this->expectException('Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidValueException');
         $cton = new SeveralModelCriterion(new Criteria(), 'A.COL BETWEEN ? AND ?', 'A.COL', null);
 
         $params = [];

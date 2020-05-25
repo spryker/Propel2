@@ -19,9 +19,6 @@ use Propel\Generator\Platform\SqlitePlatform;
 use Propel\Runtime\Adapter\AdapterFactory;
 use Propel\Runtime\Connection\ConnectionFactory;
 
-/**
- *
- */
 class SqlitePlatformTest extends PlatformTestProvider
 {
     /**

@@ -18,9 +18,9 @@ use Propel\Runtime\ActiveQuery\Criteria;
  *
  * @author Francois Zaninotto
  */
-class GeneratedQuerySetColumnTypeTest extends \PHPUnit_Framework_TestCase
+class GeneratedQuerySetColumnTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('\ComplexColumnTypeEntitySet2')) {
             $schema = <<<EOF
@@ -95,12 +95,10 @@ EOF;
             ->find();
         $this->assertEquals(0, $e->count(), 'set columns are searchable by multiple values using where()');
     }
-    
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
+
     public function testWhereInvalidValueThrowsException()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         \ComplexColumnTypeEntitySet2Query::create()
             ->where('ComplexColumnTypeEntitySet2.Tags LIKE ?', 'bar231')
             ->find();

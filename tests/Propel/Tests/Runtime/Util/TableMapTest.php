@@ -35,6 +35,7 @@ class TableMapTest extends BookstoreTestBase
 
     /**
      * @link http://propel.phpdb.org/trac/ticket/425
+     * @doesNotPerformAssertions
      */
     public function testMultipleFunctionInCriteria()
     {
@@ -73,6 +74,9 @@ class TableMapTest extends BookstoreTestBase
         $this->assertTrue($c->needsSelectAliases(), 'Criterias with common column names do need aliases');
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testDoCountDuplicateColumnName()
     {
         $con = Propel::getServiceContainer()->getReadConnection(BookTableMap::DATABASE_NAME);
@@ -117,9 +121,6 @@ class TableMapTest extends BookstoreTestBase
         $this->assertEquals('SortTest4', $rows[3]->getStoreName());
     }
 
-    /**
-     *
-     */
     public function testMixedJoinOrder()
     {
         $this->markTestSkipped('Famous cross join problem, to be solved one day');
@@ -234,21 +235,17 @@ class TableMapTest extends BookstoreTestBase
         $this->assertEquals($expectedSql, $sql);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testDoDeleteNoCondition()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $con = Propel::getServiceContainer()->getWriteConnection(BookTableMap::DATABASE_NAME);
         $c = new Criteria(BookTableMap::DATABASE_NAME);
         $c->doDelete($con);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testDoDeleteJoin()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $con = Propel::getServiceContainer()->getWriteConnection(BookTableMap::DATABASE_NAME);
         $c = new Criteria(BookTableMap::DATABASE_NAME);
         $c->add(BookTableMap::COL_TITLE, 'War And Peace');

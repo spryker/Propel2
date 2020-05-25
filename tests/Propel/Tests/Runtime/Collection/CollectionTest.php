@@ -112,11 +112,9 @@ class CollectionTest extends BookstoreTestBase
         $this->assertEquals('foo', $col->get(0), 'get() returns an element from its key');
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testGetUnknownOffset()
     {
+        $this->expectException('UnexpectedValueException');
         $col = new Collection();
         $bar = $col->get('foo');
     }
@@ -172,11 +170,9 @@ class CollectionTest extends BookstoreTestBase
         $this->assertEquals(['bar'], $col->getData(), 'remove() removes an element from its key');
     }
 
-    /**
-     * @expectedException \UnexpectedValueException
-     */
     public function testRemoveUnknownOffset()
     {
+        $this->expectException('UnexpectedValueException');
         $col = new Collection();
         $col->remove(2);
     }
@@ -234,11 +230,9 @@ class CollectionTest extends BookstoreTestBase
         $this->assertEquals($con, $col->getWriteConnection(), 'getWriteConnection() returns a write connection for the collection model');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testGetConnectionNoModel()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $col = new Collection();
         $col->getConnection();
     }

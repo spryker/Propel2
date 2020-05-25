@@ -17,7 +17,7 @@ class GeneratedObjectM2MRelationThreePKsTest extends PlatformDatabaseBuildTimeBa
 {
     protected $databaseName = 'migration';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -70,11 +70,7 @@ class GeneratedObjectM2MRelationThreePKsTest extends PlatformDatabaseBuildTimeBa
      * add    |    1             2             3            4
      * remove |    5             6             7            8
      * set    |    9            10            11           12
-     *
      */
-
-
-
     /*
      * ####################################
      * 1. add, add

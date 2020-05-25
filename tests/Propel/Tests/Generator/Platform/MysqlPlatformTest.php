@@ -21,9 +21,6 @@ use Propel\Generator\Model\Table;
 use Propel\Generator\Model\VendorInfo;
 use Propel\Generator\Platform\MysqlPlatform;
 
-/**
- *
- */
 class MysqlPlatformTest extends PlatformTestProvider
 {
     /**

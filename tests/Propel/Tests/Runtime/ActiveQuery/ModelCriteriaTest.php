@@ -668,11 +668,9 @@ class ModelCriteriaTest extends BookstoreTestBase
         $this->assertCriteriaTranslation($c, $sql, $params, 'groupBy() accepts a column alias and adds a GROUP BY clause');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\ClassNotFoundException
-     */
     public function testGroupByClassThrowsExceptionOnUnknownClass()
     {
+        $this->expectException('Propel\Runtime\Exception\ClassNotFoundException');
         $c = new ModelCriteria('bookstore', 'Propel\Tests\Bookstore\Book');
         $c->groupByClass('Author');
     }
@@ -1126,11 +1124,9 @@ class ModelCriteriaTest extends BookstoreTestBase
         $this->assertInstanceOf('Propel\Runtime\ActiveQuery\ModelWith', $withs['Author'], 'with() references the ModelWith object');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\ActiveQuery\Exception\UnknownRelationException
-     */
     public function testWithThrowsExceptionWhenJoinLacks()
     {
+        $this->expectException('Propel\Runtime\ActiveQuery\Exception\UnknownRelationException');
         $c = new ModelCriteria('bookstore', 'Propel\Tests\Bookstore\Book');
         $c->with('Propel\Tests\Bookstore\Author');
     }
@@ -1144,11 +1140,9 @@ class ModelCriteriaTest extends BookstoreTestBase
         $this->assertTrue(array_key_exists('a', $withs), 'with() uses the alias for the index of the internal list of Withs');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\ActiveQuery\Exception\UnknownRelationException
-     */
     public function testWithThrowsExceptionWhenNotUsingAlias()
     {
+        $this->expectException('Propel\Runtime\ActiveQuery\Exception\UnknownRelationException');
         $c = new ModelCriteria('bookstore', 'Propel\Tests\Bookstore\Book');
         $c->join('Propel\Tests\Bookstore\Book.Author a');
         $c->with('Propel\Tests\Bookstore\Author');
@@ -1623,11 +1617,9 @@ class ModelCriteriaTest extends BookstoreTestBase
         $this->assertEquals(125, $book->getPrice(), 'findOneOrCreate() returns a populated objects based on the conditions');
     }
 
-    /**
-     * @expectedException Propel\Runtime\Exception\PropelException
-     */
     public function testFindOneOrCreateThrowsExceptionWhenQueryContainsJoin()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $book = BookQuery::create('b')
             ->filterByPrice(125)
             ->useAuthorQuery()
@@ -1813,11 +1805,9 @@ class ModelCriteriaTest extends BookstoreTestBase
         $this->assertEquals($bookListRelTest, $bookListRel, 'findPk() can find objects with composite primary keys');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testFindPksCompositeKey()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $c = new ModelCriteria('bookstore', 'Propel\Tests\Bookstore\BookListRel');
         $bookListRel = $c->findPks([[1, 2]]);
 
@@ -2760,7 +2750,8 @@ class ModelCriteriaTest extends BookstoreTestBase
 
     public function testRequirePkThrowsException()
     {
-        $this->setExpectedException('\Propel\Runtime\Exception\EntityNotFoundException', 'Book could not be found');
+        $this->expectException('\Propel\Runtime\Exception\EntityNotFoundException');
+        $this->expectExceptionMessage('Book could not be found');
 
         BookQuery::create()->requirePk(-1337);
     }
@@ -2773,7 +2764,8 @@ class ModelCriteriaTest extends BookstoreTestBase
 
     public function testRequireOneThrowsException()
     {
-        $this->setExpectedException('\Propel\Runtime\Exception\EntityNotFoundException', 'Book could not be found');
+        $this->expectException('\Propel\Runtime\Exception\EntityNotFoundException');
+        $this->expectExceptionMessage('Book could not be found');
 
         BookQuery::create()->filterByTitle('Not existing title')->requireOne();
     }
@@ -2786,7 +2778,8 @@ class ModelCriteriaTest extends BookstoreTestBase
 
     public function testMagicRequireOneThrowsException()
     {
-        $this->setExpectedException('\Propel\Runtime\Exception\EntityNotFoundException', 'Book could not be found');
+        $this->expectException('\Propel\Runtime\Exception\EntityNotFoundException');
+        $this->expectExceptionMessage('Book could not be found');
 
         BookQuery::create()->requireOneById(-1337);
     }
@@ -2799,11 +2792,15 @@ class ModelCriteriaTest extends BookstoreTestBase
 
     public function testMagicRequireOneWithAndThrowsException()
     {
-        $this->setExpectedException('\Propel\Runtime\Exception\EntityNotFoundException', 'Book could not be found');
+        $this->expectException('\Propel\Runtime\Exception\EntityNotFoundException');
+        $this->expectExceptionMessage('Book could not be found');
 
         BookQuery::create()->requireOneByTitleAndId('Not Existing Book', -1337);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testJoinSelectColumn()
     {
         BookQuery::create()

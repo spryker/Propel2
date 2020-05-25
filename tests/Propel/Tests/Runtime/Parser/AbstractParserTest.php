@@ -27,11 +27,9 @@ class AbstractParserTest extends TestCase
         $this->assertTrue($parser instanceof XmlParser);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\FileNotFoundException
-     */
     public function testGetParserThrowsExceptionOnWrongParser()
     {
+        $this->expectException('Propel\Runtime\Exception\FileNotFoundException');
         $parser = AbstractParser::getParser('Foo');
     }
 

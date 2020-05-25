@@ -17,9 +17,6 @@ use Propel\Generator\Model\Table;
 use Propel\Generator\Model\Diff\ColumnComparator;
 use Propel\Generator\Platform\PgsqlPlatform;
 
-/**
- *
- */
 class PgsqlPlatformMigrationTest extends PlatformMigrationTestProvider
 {
 

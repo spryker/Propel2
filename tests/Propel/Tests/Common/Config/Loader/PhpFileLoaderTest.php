@@ -18,7 +18,7 @@ class PhpFileLoaderTest extends ConfigTestCase
 {
     protected $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new PhpFileLoader(new FileLocator(sys_get_temp_dir()));
     }
@@ -47,21 +47,17 @@ EOF;
         $this->assertEquals('baz', $test['bar']);
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage The file "inexistent.php" does not exist (in:
-     */
     public function testPhpFileDoesNotExist()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('The file "inexistent.php" does not exist (in:');
         $this->loader->load('inexistent.php');
     }
 
-    /**
-    * @expectedException        Propel\Common\Config\Exception\InvalidArgumentException
-    * @expectedExceptionMessage The configuration file 'nonvalid.php' has invalid content.
-    */
     public function testPhpFileHasInvalidContent()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('The configuration file \'nonvalid.php\' has invalid content.');
         $content = <<<EOF
 not php content
 only plain
@@ -71,12 +67,10 @@ EOF;
         $this->loader->load('nonvalid.php');
     }
 
-    /**
-     * @expectedException        Propel\Common\Config\Exception\InvalidArgumentException
-     * @expectedExceptionMessage The configuration file 'empty.php' has invalid content.
-     */
     public function testPhpFileIsEmpty()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('The configuration file \'empty.php\' has invalid content.');
         $content = '';
         $this->dumpTempFile('empty.php', $content);
 
@@ -84,12 +78,12 @@ EOF;
     }
 
     /**
-     * @expectedException Propel\Common\Config\Exception\InputOutputException
-     * @expectedExceptionMessage You don't have permissions to access configuration file notreadable.php.
      * @requires OS ^(?!Win.*)
      */
     public function testConfigFileNotReadableThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InputOutputException');
+        $this->expectExceptionMessage('You don\'t have permissions to access configuration file notreadable.php.');
         $content = <<<EOF
 <?php
 

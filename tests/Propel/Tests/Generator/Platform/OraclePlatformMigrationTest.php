@@ -14,9 +14,6 @@ use Propel\Generator\Model\Column;
 use Propel\Generator\Model\Diff\DatabaseComparator;
 use Propel\Generator\Platform\OraclePlatform;
 
-/**
- *
- */
 class OraclePlatformMigrationTest extends PlatformMigrationTestProvider
 {
     /**

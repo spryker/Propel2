@@ -17,9 +17,6 @@ use Propel\Generator\Model\IdMethodParameter;
 use Propel\Generator\Model\Table;
 use Propel\Generator\Platform\OraclePlatform;
 
-/**
- *
- */
 class OraclePlatformTest extends PlatformTestProvider
 {
     /**

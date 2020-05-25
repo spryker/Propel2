@@ -38,7 +38,7 @@ class GraphvizGenerateTest extends TestCaseFixtures
 
         $this->assertFileExists($outputDir.'/bookstore.schema.dot');
         $content = file_get_contents($outputDir.'/bookstore.schema.dot');
-        $this->assertContains('digraph G {', $content);
+        $this->assertStringContainsString('digraph G {', $content);
     }
 
 }

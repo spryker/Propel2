@@ -44,11 +44,9 @@ class ObjectCollectionTest extends BookstoreTestBase
         $this->assertFalse($col->contains($book2));
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testSaveOnReadOnlyEntityThrowsException()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $col = new ObjectCollection();
         $col->setModel('Propel\Tests\Bookstore\Country');
         $cv = new Country();
@@ -56,11 +54,9 @@ class ObjectCollectionTest extends BookstoreTestBase
         $col->save();
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testDeleteOnReadOnlyEntityThrowsException()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $col = new ObjectCollection();
         $col->setModel('Propel\Tests\Bookstore\Country');
         $cv = new Country();
@@ -157,12 +153,10 @@ class ObjectCollectionTest extends BookstoreTestBase
         $this->assertEquals($count, $this->con->getQueryCount());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\RuntimeException
-     * @expectedExceptionMessage Propel\Runtime\Collection\ObjectCollection::populateRelation needs instance pooling to be enabled prior to populating the collection
-     */
     public function testPopulateRelationWhenInstancePoolingIsDisabled()
     {
+        $this->expectException('Propel\Runtime\Exception\RuntimeException');
+        $this->expectExceptionMessage('Propel\Runtime\Collection\ObjectCollection::populateRelation needs instance pooling to be enabled prior to populating the collection');
         $coll = new ObjectCollection();
 
         Propel::disableInstancePooling();

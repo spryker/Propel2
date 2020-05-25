@@ -24,11 +24,9 @@ class NestedSetBehaviorObjectBuilderModifierWithScopeTest extends TestCase
         return \NestedSetTable10Query::create()->filterByTitle($title)->findOne();
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testSaveRootInTreeWithExistingRootWithSameScope()
     {
+        $this->expectException(PropelException::class);
         \Map\NestedSetTable10TableMap::doDeleteAll();
         $t1 = new \NestedSetTable10();
         $t1->setScopeValue(1);

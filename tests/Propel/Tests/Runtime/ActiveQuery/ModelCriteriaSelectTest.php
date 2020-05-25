@@ -27,20 +27,16 @@ use Propel\Runtime\ActiveQuery\ModelCriteria;
  */
 class ModelCriteriaSelectTest extends BookstoreTestBase
 {
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testSelectThrowsExceptionWhenCalledWithAnEmptyString()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $c = new ModelCriteria('bookstore', 'Propel\Tests\Bookstore\Book');
         $c->select('');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testSelectThrowsExceptionWhenCalledWithAnEmptyArray()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $c = new ModelCriteria('bookstore', 'Propel\Tests\Bookstore\Book');
         $c->select([]);
     }
@@ -138,11 +134,10 @@ class ModelCriteriaSelectTest extends BookstoreTestBase
     /**
      * As $failSilently is true by default, it doesn't throw any exception, just returns null.
      * So, we check the query fails here.
-     *
-     * @expectedException \Propel\Runtime\Exception\PropelException
      */
     public function testSelectStringFindCalledWithNonExistingColumn()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         BookstoreDataPopulator::depopulate($this->con);
         BookstoreDataPopulator::populate($this->con);
 

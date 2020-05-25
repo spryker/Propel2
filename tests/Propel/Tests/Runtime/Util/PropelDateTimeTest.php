@@ -21,7 +21,7 @@ use \DateTimeZone;
  * @author Alan Pinstein
  * @author Soenke Ruempler
  */
-class PropelDateTimeTest extends \PHPUnit_Framework_TestCase
+class PropelDateTimeTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
@@ -176,11 +176,9 @@ class PropelDateTimeTest extends \PHPUnit_Framework_TestCase
         date_default_timezone_set($originalTimezone);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testNewInstanceInvalidValue()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $dt = PropelDateTime::newInstance('some string');
     }
 

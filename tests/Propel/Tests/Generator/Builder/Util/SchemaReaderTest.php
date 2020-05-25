@@ -53,11 +53,9 @@ EOF;
         $this->assertEquals($xml, $schema->toString());
     }
 
-    /**
-     * @expectedException \Propel\Generator\Exception\SchemaException
-     */
     public function testParseStringIncorrectSchema()
     {
+        $this->expectException('Propel\Generator\Exception\SchemaException');
         $this->reader->parseString('<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><foo/>');
     }
 
@@ -130,12 +128,12 @@ EOF;
         $this->assertEquals($expectedSchema, $schema->toString());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->reader = new SchemaReader();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->reader = null;
     }

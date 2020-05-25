@@ -26,7 +26,7 @@ use Propel\Tests\Bookstore\Behavior\SortableTable11 as Table11;
  */
 class SortableBehaviorQueryBuilderModifierTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -58,11 +58,9 @@ class SortableBehaviorQueryBuilderModifierTest extends TestCase
         $this->assertEquals($expectedQuery, $query, 'orderByRank() orders the query by rank, using the argument as sort direction');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testOrderByRankIncorrectDirection()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         SortableTable11Query::create()->orderByRank('foo');
     }
 

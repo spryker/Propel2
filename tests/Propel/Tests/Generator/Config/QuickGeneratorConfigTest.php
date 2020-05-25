@@ -17,26 +17,24 @@ class QuickGeneratorConfigTest extends TestCase
 {
     protected $generatorConfig;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->generatorConfig = new QuickGeneratorConfig();
     }
 
     public function testGetConfiguredBuilder()
     {
-        $stubTable = $this->getMock('\\Propel\\Generator\\Model\\Table');
+        $stubTable = $this->createMock('\\Propel\\Generator\\Model\\Table');
         $actual = $this->generatorConfig->getConfiguredBuilder($stubTable, 'query');
 
         $this->assertInstanceOf('\\Propel\\Generator\\Builder\\Om\\QueryBuilder', $actual);
     }
 
-    /**
-     * @expectedException Propel\Generator\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid data model builder type `bad_type`
-     */
     public function testGetConfiguredBuilderWrongTypeThrowsException()
     {
-        $stubTable = $this->getMock('\\Propel\\Generator\\Model\\Table');
+        $this->expectException('Propel\Generator\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid data model builder type `bad_type`');
+        $stubTable = $this->createMock('\\Propel\\Generator\\Model\\Table');
         $actual = $this->generatorConfig->getConfiguredBuilder($stubTable, 'bad_type');
     }
 

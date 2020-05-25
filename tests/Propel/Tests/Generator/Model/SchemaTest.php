@@ -62,7 +62,7 @@ class SchemaTest extends ModelTestCase
         $schema = new Schema($this->getPlatformMock());
         $schema->addDatabase($database2);
 
-        $this->setExpectedException('Propel\Generator\Exception\EngineException');
+        $this->expectException('Propel\Generator\Exception\EngineException');
 
         $schema->joinSchemas([$subSchema1]);
     }
@@ -151,10 +151,7 @@ class SchemaTest extends ModelTestCase
 
     public function testAddArrayDatabase()
     {
-        $config = $this
-            ->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $config = $this->createMock('Propel\Generator\Config\GeneratorConfig')
         ;
         $config
             ->expects($this->any())
@@ -188,8 +185,7 @@ class SchemaTest extends ModelTestCase
     {
         $database1 = $this->getDatabaseMock('bookstore');
         $database2 = $this->getDatabaseMock('shoestore');
-        $config = $this->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-            ->disableOriginalConstructor()->getMock();
+        $config = $this->createMock('Propel\Generator\Config\GeneratorConfig');
 
         $schema = new Schema($this->getPlatformMock());
         $schema->setGeneratorConfig($config);
@@ -214,8 +210,7 @@ class SchemaTest extends ModelTestCase
 
     public function testSetGeneratorConfig()
     {
-        $config = $this->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-            ->disableOriginalConstructor()->getMock();
+        $config = $this->createMock('Propel\Generator\Config\GeneratorConfig');
 
         $schema = new Schema();
         $schema->setGeneratorConfig($config);

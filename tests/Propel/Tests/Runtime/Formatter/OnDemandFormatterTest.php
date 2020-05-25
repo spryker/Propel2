@@ -112,11 +112,9 @@ class OnDemandFormatterTest extends BookstoreEmptyTestBase
         }
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testFormatManyResultsIteratedTwice()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $con = Propel::getServiceContainer()->getConnection(BookTableMap::DATABASE_NAME);
         BookstoreDataPopulator::populate($con);
 

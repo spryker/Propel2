@@ -17,7 +17,7 @@ class FileLoaderTest extends TestCase
 {
     private $loader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->loader = new TestableFileLoader();
     }
@@ -108,11 +108,6 @@ class FileLoaderTest extends TestCase
         ];
     }
 
-    public function testInitialResolveValueIsFalse()
-    {
-        $this->assertAttributeEquals(false, 'resolved', $this->loader);
-    }
-
     public function testResolveParams()
     {
         putenv('host=127.0.0.1');
@@ -178,39 +173,31 @@ class FileLoaderTest extends TestCase
         $this->assertNull($conf['expbar'], '->resolve() replaces arguments that are just a placeholder by their value without casting them to strings');
     }
 
-    /**
-     * @expectedException Propel\Common\Config\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Parameter 'baz' not found in configuration file.
-     */
     public function testResolveThrowsExceptionIfInvalidPlaceholder()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Parameter \'baz\' not found in configuration file.');
         $this->loader->resolveParams(['foo' => 'bar', '%baz%']);
     }
 
-    /**
-     * @expectedException Propel\Common\Config\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Parameter 'foobar' not found in configuration file.
-     */
     public function testResolveThrowsExceptionIfNonExistentParameter()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Parameter \'foobar\' not found in configuration file.');
         $this->loader->resolveParams(['foo %foobar% bar']);
     }
 
-    /**
-     * @expectedException Propel\Common\Config\Exception\RuntimeException
-     * @expectedExceptionMessage Circular reference detected for parameter 'bar'.
-     */
     public function testResolveThrowsRuntimeExceptionIfCircularReference()
     {
+        $this->expectException('Propel\Common\Config\Exception\RuntimeException');
+        $this->expectExceptionMessage('Circular reference detected for parameter \'bar\'.');
         $this->loader->resolveParams(['foo' => '%bar%', 'bar' => '%foobar%', 'foobar' => '%foo%']);
     }
 
-    /**
-     * @expectedException Propel\Common\Config\Exception\RuntimeException
-     * @expectedExceptionMessage Circular reference detected for parameter 'bar'.
-     */
     public function testResolveThrowsRuntimeExceptionIfCircularReferenceMixed()
     {
+        $this->expectException('Propel\Common\Config\Exception\RuntimeException');
+        $this->expectExceptionMessage('Circular reference detected for parameter \'bar\'.');
         $this->loader->resolveParams(['foo' => 'a %bar%', 'bar' => 'a %foobar%', 'foobar' => 'a %foo%']);
     }
 
@@ -284,12 +271,10 @@ class FileLoaderTest extends TestCase
         $this->assertFalse($this->loader->checkSupports(12, '/tmp/propel.yaml'));
     }
 
-    /**
-     * @expectedException \Propel\Common\Config\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Environment variable 'foo' is not defined.
-     */
     public function testNonExistentEnvironmentVariableThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Environment variable \'foo\' is not defined.');
         putenv('home=myHome');
 
         $config = [
@@ -300,12 +285,10 @@ class FileLoaderTest extends TestCase
         $this->loader->resolveParams($config);
     }
 
-    /**
-     * @expectedException \Propel\Common\Config\Exception\RuntimeException
-     * @expectedExceptionMessage A string value must be composed of strings and/or numbers,
-     */
     public function testParameterIsNotStringOrNumber()
     {
+        $this->expectException('Propel\Common\Config\Exception\RuntimeException');
+        $this->expectExceptionMessage('A string value must be composed of strings and/or numbers,');
         $config = [
             'foo' => 'a %bar%',
             'bar' => [],

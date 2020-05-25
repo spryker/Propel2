@@ -22,10 +22,10 @@ class ModelCriteriaGroupByArrayTest extends BookstoreEmptyTestBase
 {
     /**
      * @dataProvider dataForTestException
-     * @expectedException \Propel\Runtime\Exception\PropelException
      */
     public function testGroupByArrayThrowException($groupBy)
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $authors = AuthorQuery::create()
             ->leftJoinBook()
             ->select(array('FirstName', 'LastName'))

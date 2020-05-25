@@ -18,7 +18,7 @@ class IniFileLoaderTest extends ConfigTestCase
 {
     protected $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new IniFileLoader(new FileLocator(sys_get_temp_dir()));
     }
@@ -47,21 +47,17 @@ EOF;
         $this->assertEquals('baz', $test['bar']);
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage The file "inexistent.ini" does not exist (in:
-     */
     public function testIniFileDoesNotExist()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('The file "inexistent.ini" does not exist (in:');
         $this->loader->load('inexistent.ini');
     }
 
-    /**
-     * @expectedException        Propel\Common\Config\Exception\InvalidArgumentException
-     * @expectedExceptionMessage The configuration file 'nonvalid.ini' has invalid content.
-     */
     public function testIniFileHasInvalidContent()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('The configuration file \'nonvalid.ini\' has invalid content.');
         $content = <<<EOF
 {not ini content}
 only plain
@@ -137,12 +133,10 @@ EOF;
         $this->assertEquals('foobaz2', $actual['bla']['foo']['baz'][1]);
     }
 
-    /**
-     * @expectedException \Propel\Common\Config\Exception\IniParseException
-     * @expectedExceptionMessage Invalid key ".foo"
-     */
     public function testInvalidSectionThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\IniParseException');
+        $this->expectExceptionMessage('Invalid key ".foo"');
         $content = <<<EOF
 .foo = bar
 bar = baz
@@ -152,12 +146,10 @@ EOF;
         $test = $this->loader->load('parameters.ini');
     }
 
-    /**
-     * @expectedException \Propel\Common\Config\Exception\IniParseException
-     * @expectedExceptionMessage Invalid key "foo."
-     */
     public function testInvalidParamThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\IniParseException');
+        $this->expectExceptionMessage('Invalid key "foo."');
         $content = <<<EOF
 foo. = bar
 bar = baz
@@ -167,12 +159,10 @@ EOF;
         $test = $this->loader->load('parameters.ini');
     }
 
-    /**
-     * @expectedException \Propel\Common\Config\Exception\IniParseException
-     * @expectedExceptionMessage Cannot create sub-key for "foo", as key already exists
-     */
     public function testAlreadyExistentParamThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\IniParseException');
+        $this->expectExceptionMessage('Cannot create sub-key for "foo", as key already exists');
         $content = <<<EOF
 foo = bar
 foo.babar = baz
@@ -194,12 +184,12 @@ EOF;
     }
 
     /**
-     * @expectedException Propel\Common\Config\Exception\InputOutputException
-     * @expectedExceptionMessage You don't have permissions to access configuration file notreadable.ini.
      * @requires OS ^(?!Win.*)
      */
     public function testIniFileNotReadableThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InputOutputException');
+        $this->expectExceptionMessage('You don\'t have permissions to access configuration file notreadable.ini.');
         $content = <<<EOF
 foo = bar
 bar = baz
@@ -214,4 +204,3 @@ EOF;
 
     }
 }
-

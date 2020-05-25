@@ -19,7 +19,7 @@ class YamlFileLoaderTest extends ConfigTestCase
 {
     protected $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new YamlFileLoader(new FileLocator(sys_get_temp_dir()));
     }
@@ -48,21 +48,17 @@ EOF;
         $this->assertEquals('baz', $test['bar']);
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage The file "inexistent.yaml" does not exist (in:
-     */
     public function testYamlFileDoesNotExist()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('The file "inexistent.yaml" does not exist (in:');
         $this->loader->load('inexistent.yaml');
     }
 
-    /**
-     * @expectedException        Symfony\Component\Yaml\Exception\ParseException
-     * @expectedExceptionMessage Unable to parse
-     */
     public function testYamlFileHasInvalidContent()
     {
+        $this->expectException('Symfony\Component\Yaml\Exception\ParseException');
+        $this->expectExceptionMessage('Unable to parse');
         $content = <<<EOF
 not yaml content
 only plain
@@ -84,12 +80,12 @@ EOF;
     }
 
     /**
-     * @expectedException Propel\Common\Config\Exception\InputOutputException
-     * @expectedExceptionMessage You don't have permissions to access configuration file notreadable.yaml.
      * @requires OS ^(?!Win.*)
      */
     public function testYamlFileNotReadableThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InputOutputException');
+        $this->expectExceptionMessage('You don\'t have permissions to access configuration file notreadable.yaml.');
         $content = <<<EOF
 foo: bar
 bar: baz

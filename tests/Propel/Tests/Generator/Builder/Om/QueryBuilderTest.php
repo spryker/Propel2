@@ -52,7 +52,7 @@ use \ReflectionMethod;
 class QueryBuilderTest extends BookstoreTestBase
 {
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         include_once(__DIR__.'/QueryBuilderTestClasses.php');
@@ -255,7 +255,7 @@ class QueryBuilderTest extends BookstoreTestBase
         $b->save($this->con);
 
         $book = BookQuery::create()->select(['Book.Title', 'Book.ISBN'])->findPk($b->getId(), $this->con);
-        $this->assertInternalType('array', $book);
+        $this->assertIsArray($book);
 
         $book = BookQuery::create()->filterByTitle('bar')->findPk($b->getId(), $this->con);
         $this->assertNull($book);
@@ -748,10 +748,10 @@ class QueryBuilderTest extends BookstoreTestBase
 
     /**
      * @throws \Propel\Runtime\Exception\PropelException
-     * @expectedException \Propel\Runtime\Exception\PropelException
      */
     public function testFilterUsingCollectionByRelationNameCompositePk()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         BookstoreDataPopulator::depopulate();
         BookstoreDataPopulator::populate();
 

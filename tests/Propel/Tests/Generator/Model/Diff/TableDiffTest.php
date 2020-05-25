@@ -12,7 +12,7 @@ use Propel\Generator\Model\Table;
 use Propel\Generator\Model\Unique;
 use Propel\Generator\Platform\DefaultPlatform;
 
-class TableDiffTest extends \PHPUnit_Framework_TestCase
+class TableDiffTest extends \PHPUnit\Framework\TestCase
 {
     public function testDefaultObjectState()
     {
@@ -20,7 +20,7 @@ class TableDiffTest extends \PHPUnit_Framework_TestCase
         $toTable   = new Table('article');
 
         $diff = $this->createTableDiff($fromTable, $toTable);
-        
+
         $this->assertSame($fromTable, $diff->getFromTable());
         $this->assertSame($toTable, $diff->getToTable());
         $this->assertFalse($diff->hasAddedColumns());
@@ -135,11 +135,9 @@ class TableDiffTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($diff->hasAddedPkColumns());
     }
 
-    /**
-     * @expectedException \Propel\Generator\Exception\DiffException
-     */
     public function testCantAddNonPrimaryKeyColumn()
     {
+        $this->expectException('Propel\Generator\Exception\DiffException');
         $diff = $this->createTableDiff();
         $diff->addAddedPkColumn('id', new Column('id', 'integer'));
     }
@@ -296,7 +294,7 @@ class TableDiffTest extends \PHPUnit_Framework_TestCase
 
         $diff = $this->createTableDiff();
         $diff->addModifiedColumn('title', $columnDiff);
-        
+
         $reverseDiff = $diff->getReverseDiff();
         $this->assertTrue($reverseDiff->hasModifiedColumns());
         $this->assertEquals([ 'title' => $reverseColumnDiff ], $reverseDiff->getModifiedColumns());
@@ -464,7 +462,7 @@ class TableDiffTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($reverseDiff->hasModifiedFks());
         $this->assertSame([ 'fk_1' => [ $toFk, $fromFk ]], $reverseDiff->getModifiedFks());
     }
-    
+
     private function createTableDiff(Table $fromTable = null, Table $toTable = null)
     {
         if (null === $fromTable) {

@@ -13,6 +13,7 @@ namespace Propel\Tests\Generator\Model;
 use Propel\Generator\Model\Column;
 use Propel\Generator\Model\Database;
 use Propel\Generator\Model\Index;
+use Propel\Generator\Model\Inheritance;
 use Propel\Generator\Model\Table;
 
 /**
@@ -65,8 +66,7 @@ class TableTest extends ModelTestCase
 
     public function testGetGeneratorConfig()
     {
-        $config = $this->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-            ->disableOriginalConstructor()->getMock();
+        $config = $this->createMock('Propel\Generator\Config\GeneratorConfig');
         $database = $this->getDatabaseMock('foo');
 
         $database
@@ -239,7 +239,7 @@ class TableTest extends ModelTestCase
 
     public function testSetInvalidDefaultStringFormat()
     {
-        $this->setExpectedException('Propel\Generator\Exception\InvalidArgumentException');
+        $this->expectException('Propel\Generator\Exception\InvalidArgumentException');
 
         $table = new Table();
         $table->setDefaultStringFormat('FOO');
@@ -287,7 +287,7 @@ class TableTest extends ModelTestCase
         $table = new Table('books');
         $column = $this->getColumnMock('created_at', ['phpName' => 'CreatedAt']);
 
-        $this->setExpectedException('Propel\Generator\Exception\EngineException');
+        $this->expectException('Propel\Generator\Exception\EngineException');
 
         $table->addColumn($column);
         $table->addColumn($column);
@@ -303,8 +303,8 @@ class TableTest extends ModelTestCase
             ->will($this->returnValue(true))
         ;
 
-        $children[] = $this->getMock('Propel\Generator\Model\Inheritance');
-        $children[] = $this->getMock('Propel\Generator\Model\Inheritance');
+        $children[] = $this->createMock(Inheritance::class);
+        $children[] = $this->createMock(Inheritance::class);
 
         $column
             ->expects($this->any())
@@ -318,8 +318,8 @@ class TableTest extends ModelTestCase
         $names = $table->getChildrenNames();
 
         $this->assertCount(2, $names);
-        $this->assertSame('Propel\Generator\Model\Inheritance', get_parent_class ($names[0]));
-        $this->assertSame('Propel\Generator\Model\Inheritance', get_parent_class ($names[1]));
+        $this->assertSame(Inheritance::class, get_parent_class ($names[0]));
+        $this->assertSame(Inheritance::class, get_parent_class ($names[1]));
     }
 
     public function testCantGetChildrenNames()
@@ -392,7 +392,7 @@ class TableTest extends ModelTestCase
 
     public function testCantRemoveColumnWhichIsNotInTable()
     {
-        $this->setExpectedException('Propel\Generator\Exception\EngineException');
+        $this->expectException('Propel\Generator\Exception\EngineException');
 
         $column1 = $this->getColumnMock('title');
 
@@ -513,11 +513,9 @@ class TableTest extends ModelTestCase
         $this->assertCount(1, $table->getIndices());
     }
 
-    /**
-     * @expectedException \Propel\Generator\Exception\InvalidArgumentException
-     */
     public function testAddEmptyIndex()
     {
+        $this->expectException('Propel\Generator\Exception\InvalidArgumentException');
         $table = new Table();
         $table->addIndex(new Index());
 
@@ -650,10 +648,7 @@ class TableTest extends ModelTestCase
 
     public function testAddIdMethodParameter()
     {
-        $parameter = $this
-            ->getMockBuilder('Propel\Generator\Model\IdMethodParameter')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $parameter = $this->createMock('Propel\Generator\Model\IdMethodParameter')
         ;
         $parameter
             ->expects($this->once())
@@ -693,7 +688,7 @@ class TableTest extends ModelTestCase
         $this->assertInstanceOf('Propel\Generator\Model\ForeignKey', $table->addForeignKey($fk));
         $this->assertCount(1, $table->getForeignKeys());
         $this->assertTrue($table->hasForeignKeys());
-        $this->assertContains('authors', $table->getForeignTableNames());
+        $this->assertTrue(in_array('authors', $table->getForeignTableNames()));
     }
 
     public function testAddArrayForeignKey()
@@ -713,7 +708,7 @@ class TableTest extends ModelTestCase
         $this->assertCount(1, $table->getForeignKeys());
         $this->assertTrue($table->hasForeignKeys());
 
-        $this->assertContains('authors', $table->getForeignTableNames());
+        $this->assertTrue(in_array('authors', $table->getForeignTableNames()));
     }
 
     public function testGetForeignKeysReferencingTable()
@@ -740,7 +735,7 @@ class TableTest extends ModelTestCase
         $table->addForeignKey($fk1);
         $table->addForeignKey($fk2);
 
-        $this->setExpectedException('Propel\Generator\Exception\EngineException');
+        $this->expectException('Propel\Generator\Exception\EngineException');
         $table->addForeignKey($fk3);
         $this->fail('Expected to throw an EngineException due to duplicate foreign key.');
     }
@@ -760,7 +755,7 @@ class TableTest extends ModelTestCase
         $table->addForeignKey($fk2);
 
         $this->assertCount(1, $table->getColumnForeignKeys('author_id'));
-        $this->assertContains($fk1, $table->getColumnForeignKeys('author_id'));
+        $this->assertTrue(in_array($fk1, $table->getColumnForeignKeys('author_id')));
     }
 
     public function testSetBaseClasses()

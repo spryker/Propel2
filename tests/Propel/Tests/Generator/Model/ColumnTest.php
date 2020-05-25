@@ -207,10 +207,7 @@ class ColumnTest extends ModelTestCase
      */
     public function testGetDefaultValueString($mappingType, $value, $expected)
     {
-        $defaultValue = $this
-            ->getMockBuilder('Propel\Generator\Model\ColumnDefaultValue')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $defaultValue = $this->createMock('Propel\Generator\Model\ColumnDefaultValue')
         ;
 
         $defaultValue
@@ -259,10 +256,7 @@ class ColumnTest extends ModelTestCase
     {
         $column = new Column();
 
-        $inheritance = $this
-            ->getMockBuilder('Propel\Generator\Model\Inheritance')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $inheritance = $this->createMock('Propel\Generator\Model\Inheritance')
         ;
         $inheritance
             ->expects($this->any())
@@ -303,8 +297,8 @@ class ColumnTest extends ModelTestCase
     public function testClearForeignKeys()
     {
         $fks = [
-            $this->getMock('Propel\Generator\Model\ForeignKey'),
-            $this->getMock('Propel\Generator\Model\ForeignKey'),
+            $this->createMock('Propel\Generator\Model\ForeignKey'),
+            $this->createMock('Propel\Generator\Model\ForeignKey'),
         ];
 
         $table = $this->getTableMock('books');
@@ -474,8 +468,8 @@ class ColumnTest extends ModelTestCase
         $this->assertSame('int', $column->getPhpType());
         $this->assertTrue($column->isPhpPrimitiveType());
         $this->assertTrue($column->isEnumType());
-        $this->assertContains('FOO', $column->getValueSet());
-        $this->assertContains('BAR', $column->getValueSet());
+        $this->assertTrue(in_array('FOO', $column->getValueSet()));
+        $this->assertTrue(in_array('BAR', $column->getValueSet()));
     }
 
     public function testSetType()
@@ -495,8 +489,8 @@ class ColumnTest extends ModelTestCase
         $this->assertSame('int', $column->getPhpType());
         $this->assertTrue($column->isPhpPrimitiveType());
         $this->assertTrue($column->isSetType());
-        $this->assertContains('FOO', $column->getValueSet());
-        $this->assertContains('BAR', $column->getValueSet());
+        $this->assertTrue(in_array('FOO', $column->getValueSet()));
+        $this->assertTrue(in_array('BAR', $column->getValueSet()));
     }
 
     public function testSetStringValueSet()
@@ -504,9 +498,9 @@ class ColumnTest extends ModelTestCase
         $column = new Column();
         $column->setValueSet(' FOO , BAR , BAZ');
 
-        $this->assertContains('FOO', $column->getValueSet());
-        $this->assertContains('BAR', $column->getValueSet());
-        $this->assertContains('BAZ', $column->getValueSet());
+        $this->assertTrue(in_array('FOO', $column->getValueSet()));
+        $this->assertTrue(in_array('BAR', $column->getValueSet()));
+        $this->assertTrue(in_array('BAZ', $column->getValueSet()));
     }
 
     public function testPhpObjectType()
@@ -807,7 +801,7 @@ class ColumnTest extends ModelTestCase
 
     public function testGetAutoIncrementStringThrowsEngineException()
     {
-        $this->setExpectedException('Propel\Generator\Exception\EngineException');
+        $this->expectException('Propel\Generator\Exception\EngineException');
 
         $table = $this->getTableMock('books');
         $table

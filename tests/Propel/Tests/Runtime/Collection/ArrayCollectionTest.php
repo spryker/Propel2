@@ -32,7 +32,7 @@ use Propel\Runtime\Map\TableMap;
  */
 class ArrayCollectionTest extends BookstoreEmptyTestBase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         BookstoreDataPopulator::populate($this->con);
@@ -53,11 +53,9 @@ class ArrayCollectionTest extends BookstoreEmptyTestBase
         }
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testSaveOnReadOnlyEntityThrowsException()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $col = new ArrayCollection();
         $col->setModel('Country');
         $cv = new Country();
@@ -75,11 +73,9 @@ class ArrayCollectionTest extends BookstoreEmptyTestBase
         $this->assertEquals(0, count($books));
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testDeleteOnReadOnlyEntityThrowsException()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $col = new ArrayCollection();
         $col->setModel('Country');
         $cv = new Country();
@@ -222,11 +218,9 @@ class ArrayCollectionTest extends BookstoreEmptyTestBase
         $this->assertEqual('bar', $col->getWorkerObject()->foo, 'getWorkerObject() returns always the same object');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testGetWorkerObjectNoModel()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $col = new TestableArrayCollection();
         $col->getWorkerObject();
     }

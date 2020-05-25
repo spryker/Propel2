@@ -79,6 +79,5 @@ class Issue1133Test extends TestCase
 
         $this->assertContains($objectThatShouldNotBeRemoved, $testCollection, 'ObjectCollection does not contain item that should be in collection.');
         $this->assertNotContains($objectThatWillBeRemoved, $testCollection, 'ObjectCollection contains item that should be removed.');
-
     }
 }

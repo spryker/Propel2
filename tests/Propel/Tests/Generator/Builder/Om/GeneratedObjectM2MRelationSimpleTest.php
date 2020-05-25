@@ -16,7 +16,7 @@ class GeneratedObjectM2MRelationSimpleTest extends PlatformDatabaseBuildTimeBase
     protected $databaseName = 'migration';
     protected $connected = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -54,9 +54,7 @@ class GeneratedObjectM2MRelationSimpleTest extends PlatformDatabaseBuildTimeBase
      * addFriend    |    1             2             3            4
      * removeFriend |    5             6             7            8
      * setFriends   |    9            10            11           12
-     *
      */
-
     /*
      * ####################################
      * 1. addFriend, addFriend

@@ -12,6 +12,7 @@ namespace Propel\Tests\Generator\Builder\Om;
 
 use Propel\Generator\Config\QuickGeneratorConfig;
 use Propel\Runtime\Adapter\Pdo\SqliteAdapter;
+use Propel\Runtime\Exception\BadMethodCallException;
 use Propel\Tests\Bookstore\BookstoreQuery;
 use Propel\Generator\Util\QuickBuilder;
 use Propel\Runtime\Propel;
@@ -1067,11 +1068,9 @@ EOF;
         $this->assertEquals('bar', $book->getFoo(), 'generated __call() catches getters for virtual columns starting with a lowercase character');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testMagicCallUndefined()
     {
+        $this->expectException(BadMethodCallException::class);
         $book = new Book();
         $book->fooMethodName();
     }

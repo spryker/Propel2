@@ -93,7 +93,7 @@ EOF;
         $validator = new SchemaValidator($schema);
 
         $this->assertFalse($validator->validate());
-        $this->assertContains('Table "bar" declares a phpName already used in another table', $validator->getErrors());
+        $this->assertTrue(in_array('Table "bar" declares a phpName already used in another table', $validator->getErrors()));
     }
 
     public function testValidateReturnsTrueWhenTwoTablesHaveSamePhpNameInDifferentNamespaces()
@@ -131,7 +131,7 @@ EOF;
         $validator = new SchemaValidator($schema);
 
         $this->assertFalse($validator->validate());
-        $this->assertContains('Table "foo" does not have a primary key defined. Propel requires all tables to have a primary key.', $validator->getErrors());
+        $this->assertTrue(in_array('Table "foo" does not have a primary key defined. Propel requires all tables to have a primary key.', $validator->getErrors()));
     }
 
     public function testValidateReturnsTrueWhenTableHasNoPkButIsAView()
@@ -151,7 +151,7 @@ EOF;
         $validator = new SchemaValidator($schema);
 
         $this->assertFalse($validator->validate());
-        $this->assertContains('Table "TABLE_NAME" uses a reserved keyword as name', $validator->getErrors());
+        $this->assertTrue(in_array('Table "TABLE_NAME" uses a reserved keyword as name', $validator->getErrors()));
     }
 
     public function testValidateReturnsFalseWhenTwoColumnsHaveSamePhpName()
@@ -169,6 +169,6 @@ EOF;
         $validator = new SchemaValidator($schema);
 
         $this->assertFalse($validator->validate());
-        $this->assertContains('Column "bar" declares a phpName already used in table "foo_table"', $validator->getErrors());
+        $this->assertTrue(in_array('Column "bar" declares a phpName already used in table "foo_table"', $validator->getErrors()));
     }
 }

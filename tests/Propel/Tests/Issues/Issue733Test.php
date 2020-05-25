@@ -10,11 +10,11 @@ use Propel\Tests\TestCase;
  * This test proves the bug described in https://github.com/propelorm/Propel2/issues/733.
  *
  * @group database
- */ 
+ */
 class Issue733Test extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('\Issue733Test1')) {
             $schema = <<<EOF

@@ -28,7 +28,7 @@ use Propel\Tests\Bookstore\Behavior\Map\SortableTable12TableMap;
  */
 class SortableBehaviorObjectBuilderModifierWithScopeTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -151,21 +151,17 @@ class SortableBehaviorObjectBuilderModifierWithScopeTest extends TestCase
         $this->assertEquals($expected, $this->getFixturesArrayWithScope(2), 'insertAtRank() leaves other suites unchanged');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testInsertAtNegativeRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = new Table12();
         $t->setScopeValue(1);
         $t->insertAtRank(0);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testInsertAtOverMaxRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = new Table12();
         $t->setScopeValue(1);
         $t->insertAtRank(6);
@@ -273,29 +269,23 @@ class SortableBehaviorObjectBuilderModifierWithScopeTest extends TestCase
         $this->assertEquals($expected, $this->getFixturesArrayWithScope(), 'moveToRank() can move down');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testMoveToNewObject()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = new Table12();
         $t->moveToRank(2);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testMoveToNegativeRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = SortableTable12Query::retrieveByRank(2, 1);
         $t->moveToRank(0);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testMoveToOverMaxRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = SortableTable12Query::retrieveByRank(2, 1);
         $t->moveToRank(5);
     }
@@ -404,11 +394,9 @@ class SortableBehaviorObjectBuilderModifierWithScopeTest extends TestCase
         $this->assertEquals($expected, $this->getFixturesArrayWithScope(2), 'removeFromList() leaves other suites unchanged');
     }
 
-    /**
-     * @expectedException Propel\Runtime\Exception\PropelException
-     */
     public function testRemoveFromListNoScope()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t2 = SortableTable12Query::retrieveByRank(2);
         $t2->removeFromList();
     }

@@ -247,11 +247,9 @@ class OnDemandFormatterWithTest extends BookstoreEmptyTestBase
         $this->assertEquals('J.K.', $author->getFirstName(), 'Related object is correctly hydrated');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\LogicException
-     */
     public function testFindOneWithOneToMany()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
         BookstoreDataPopulator::populate();
         BookTableMap::clearInstancePool();
         AuthorTableMap::clearInstancePool();

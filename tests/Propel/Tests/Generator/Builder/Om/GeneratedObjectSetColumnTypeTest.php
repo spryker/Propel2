@@ -25,7 +25,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedObjectSetColumnTypeTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('MyNameSpace\\ComplexColumnTypeEntitySet')) {
             $schema = <<<EOF
@@ -95,11 +95,9 @@ EOF;
         $this->assertEquals(['foo', 'baz'], $e->getTags());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testGetterThrowsExceptionOnUnknownKey()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $e = new \PublicComplexColumnTypeEntitySet();
         $e->bar = 156;
         $e->getBar();
@@ -149,7 +147,7 @@ EOF;
         $value = ['foo', '1'];
         $e->setTags($value);
         $this->assertEquals($value, $e->getTags(), 'array columns can store arrays');
-        
+
         $this->assertEquals(9, $e->tags);
     }
 
@@ -162,11 +160,9 @@ EOF;
         $this->assertEquals([], $e->getTags(), 'object columns can be reset');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testSetterThrowsExceptionOnUnknownValue()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $e = new ComplexColumnTypeEntitySet();
         $e->setBar(['bazz']);
     }

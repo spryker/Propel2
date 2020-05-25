@@ -156,6 +156,7 @@ class QueryBuilderInheritanceTest extends BookstoreTestBase
 
     /**
      * This test prove failure with propel.emulateForeignKeyConstraints = true
+     * @doesNotPerformAssertions
      */
     public function testDeleteCascadeWithAbstractSingleTableInheritance()
     {

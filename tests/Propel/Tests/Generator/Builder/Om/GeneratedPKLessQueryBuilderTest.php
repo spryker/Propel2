@@ -18,7 +18,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedPKLessQueryBuilderTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (class_exists('Stuff')) {
             return;
@@ -36,58 +36,46 @@ SCHEMA;
         QuickBuilder::buildSchema($schema);
     }
 
-    /**
-     * @expectedException           \Propel\Runtime\Exception\LogicException
-     * @expectedExceptionMessage    The Stuff object has no primary key
-     */
     public function testFindPkThrowsAnError()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
+        $this->expectExceptionMessage('The Stuff object has no primary key');
         \StuffQuery::create()->findPk(42);
     }
 
-    /**
-     * @expectedException           \Propel\Runtime\Exception\LogicException
-     * @expectedExceptionMessage    The Stuff object has no primary key
-     */
     public function testBuildPkeyCriteria()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
+        $this->expectExceptionMessage('The Stuff object has no primary key');
         $stuff = new \Stuff();
         $stuff->buildPkeyCriteria();
     }
 
-    /**
-     * @expectedException           \Propel\Runtime\Exception\LogicException
-     * @expectedExceptionMessage    The Stuff object has no primary key
-     */
     public function testTableMapDoDelete()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
+        $this->expectExceptionMessage('The Stuff object has no primary key');
         \Map\StuffTableMap::doDelete([]);
     }
 
-    /**
-     * @expectedException           \Propel\Runtime\Exception\LogicException
-     * @expectedExceptionMessage    The Stuff object has no primary key
-     */
     public function testFindPksThrowsAnError()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
+        $this->expectExceptionMessage('The Stuff object has no primary key');
         \StuffQuery::create()->findPks([42, 24]);
     }
 
-    /**
-     * @expectedException           \Propel\Runtime\Exception\LogicException
-     * @expectedExceptionMessage    The Stuff object has no primary key
-     */
     public function testFilterByPrimaryKeyThrowsAnError()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
+        $this->expectExceptionMessage('The Stuff object has no primary key');
         \StuffQuery::create()->filterByPrimaryKey(42);
     }
 
-    /**
-     * @expectedException           \Propel\Runtime\Exception\LogicException
-     * @expectedExceptionMessage    The Stuff object has no primary key
-     */
     public function testFilterByPrimaryKeysThrowsAnError()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
+        $this->expectExceptionMessage('The Stuff object has no primary key');
         \StuffQuery::create()->filterByPrimaryKeys(42);
     }
 }

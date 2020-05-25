@@ -18,7 +18,7 @@ class JsonFileLoaderTest extends ConfigTestCase
 {
     protected $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new JsonFileLoader(new FileLocator(sys_get_temp_dir()));
     }
@@ -46,20 +46,16 @@ EOF;
         $this->assertEquals('baz', $actual['bar']);
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage The file "inexistent.json" does not exist (in:
-     */
     public function testJsonFileDoesNotExist()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('The file "inexistent.json" does not exist (in:');
         $this->loader->load('inexistent.json');
     }
 
-    /**
-     * @expectedException        Propel\Common\Config\Exception\JsonParseException
-     */
     public function testJsonFileHasInvalidContent()
     {
+        $this->expectException('Propel\Common\Config\Exception\JsonParseException');
         $content = <<<EOF
 not json content
 only plain
@@ -81,12 +77,12 @@ EOF;
     }
 
     /**
-     * @expectedException Propel\Common\Config\Exception\InputOutputException
-     * @expectedExceptionMessage You don't have permissions to access configuration file notreadable.json.
      * @requires OS ^(?!Win.*)
      */
     public function testJsonFileNotReadableThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InputOutputException');
+        $this->expectExceptionMessage('You don\'t have permissions to access configuration file notreadable.json.');
         $content = <<<EOF
 {
   "foo": "bar",

@@ -56,7 +56,7 @@ CREATE TABLE versionable_behavior_test_0
     UNIQUE (id)
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function testModifyTableAddsVersionColumnCustomName()
@@ -89,7 +89,7 @@ CREATE TABLE versionable_behavior_test_0
     UNIQUE (id)
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function testModifyTableDoesNotAddVersionColumnIfExists()
@@ -121,7 +121,7 @@ CREATE TABLE versionable_behavior_test_0
     UNIQUE (id)
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function foreignTableSchemaDataProvider()
@@ -172,7 +172,7 @@ CREATE TABLE versionable_behavior_test_0
     FOREIGN KEY (foreign_id) REFERENCES versionable_behavior_test_1 (id)
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
         $expected = <<<EOF
 
 -----------------------------------------------------------------------
@@ -194,7 +194,7 @@ CREATE TABLE versionable_behavior_test_0_version
         ON DELETE CASCADE
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     /**
@@ -219,7 +219,7 @@ CREATE TABLE versionable_behavior_test_1
     UNIQUE (id)
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
         $expected = <<<EOF
 
 -----------------------------------------------------------------------
@@ -241,7 +241,7 @@ CREATE TABLE versionable_behavior_test_1_version
         ON DELETE CASCADE
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     /**
@@ -269,7 +269,7 @@ CREATE TABLE versionable_behavior_test_0_version
         ON DELETE CASCADE
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function testModifyTableAddsVersionTableCustomName()
@@ -305,7 +305,7 @@ CREATE TABLE foo_ver
         ON DELETE CASCADE
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function testModifyTableDoesNotAddVersionTableIfExists()
@@ -402,7 +402,7 @@ CREATE TABLE versionable_behavior_test_0
     UNIQUE (id)
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     /**
@@ -433,7 +433,7 @@ CREATE TABLE versionable_behavior_test_0_version
         ON DELETE CASCADE
 );
 EOF;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function testDatabaseLevelBehavior()
@@ -467,7 +467,7 @@ CREATE TABLE versionable_behavior_test_0_version
 EOF;
         $builder = new QuickBuilder();
         $builder->setSchema($schema);
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function testIndicesParameter()
@@ -502,7 +502,7 @@ CREATE INDEX versionable_behavior_test_0_version_i_14f552 ON versionable_behavio
 EOF;
         $builder = new QuickBuilder();
         $builder->setSchema($schema);
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
     public function testSkipSqlParameterOnParentTable()
@@ -560,7 +560,7 @@ CREATE TABLE prefix_versionable_behavior_test_0
     UNIQUE (id)
 );
 SQL;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
     /**
      * @dataProvider tablePrefixSchemaDataProvider
@@ -587,7 +587,7 @@ CREATE TABLE prefix_versionable_behavior_test_0_version
         ON DELETE CASCADE
 );
 SQL;
-        $this->assertContains($expected, $builder->getSQL());
+        $this->assertStringContainsString($expected, $builder->getSQL());
     }
 
 }

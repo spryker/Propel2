@@ -119,11 +119,9 @@ class BasicCriterionTest extends BaseTestCase
         $this->assertEquals([], $params);
     }
 
-    /**
-     * @expectedException Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidValueException
-     */
     public function testAppendPsThrowsExceptionWhenValueIsNullAndComparisonIsComplex()
     {
+        $this->expectException('Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidValueException');
         $cton = new BasicCriterion(new Criteria(), 'A.COL', null, Criteria::GREATER_THAN);
 
         $params = [];

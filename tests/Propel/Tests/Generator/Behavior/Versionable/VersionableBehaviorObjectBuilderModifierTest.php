@@ -21,7 +21,7 @@ use Propel\Runtime\Collection\ObjectCollection;
 class VersionableBehaviorObjectBuilderModifierTest extends TestCase
 {
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         $schema = <<<EOF
 <database name="versionable_behavior_test_1">
@@ -512,11 +512,9 @@ EOF;
         $this->assertEquals(3, $o->getVersion());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testToVersionThrowsExceptionOnIncorrectVersion()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $o = new \VersionableBehaviorTest1();
         $o->setBar(123); // version 1
         $o->save();

@@ -24,7 +24,7 @@ use Propel\Tests\TestCase;
 class DelegateBehaviorTest extends TestCase
 {
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('DelegateDelegate')) {
             $schema = <<<EOF
@@ -171,11 +171,9 @@ EOF;
         $this->assertEquals('bar', $main->getSummary());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testAModelCannotHaveCascadingDelegates()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $main = new \DelegateMain();
         $main->setSummary('bar');
         $main->setBody('baz');

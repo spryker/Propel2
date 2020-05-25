@@ -31,11 +31,9 @@ class ConnectionManagerSingleTest extends BaseTestCase
         $this->assertEquals('foo', $manager->getName());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\InvalidArgumentException
-     */
     public function testGetWriteConnectionFailsIfManagerIsNotConfigured()
     {
+        $this->expectException('Propel\Runtime\Exception\InvalidArgumentException');
         $manager = new ConnectionManagerSingle();
         $con = $manager->getWriteConnection(new SqliteAdapter());
     }

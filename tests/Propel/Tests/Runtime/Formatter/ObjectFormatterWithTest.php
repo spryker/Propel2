@@ -323,11 +323,9 @@ class ObjectFormatterWithTest extends BookstoreEmptyTestBase
         $this->assertEquals('J.K.', $author->getFirstName(), 'Related object is correctly hydrated');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\LogicException
-     */
     public function testFindOneWithOneToManyAndLimit()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
         $c = new ModelCriteria('bookstore', 'Propel\Tests\Bookstore\Book');
         $c->add(BookTableMap::COL_ISBN, '043935806X');
         $c->leftJoin('Book.Review');

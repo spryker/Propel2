@@ -25,7 +25,7 @@ class I18nConcreteInheritanceHandleValidateBehaviorTest extends BookstoreTestBas
 {
     protected $metadataFactory;
 
-    public function assertPreConditions()
+    public function assertPreConditions(): void
     {
         //if SF >= 2.5 use new validator classes
         if(class_exists('Symfony\\Component\\Validator\\Validator\\RecursiveValidator')) {

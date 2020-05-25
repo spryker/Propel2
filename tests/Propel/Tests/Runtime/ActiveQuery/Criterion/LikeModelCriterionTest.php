@@ -54,11 +54,9 @@ class LikeModelCriterionTest extends BaseTestCase
         $this->assertEquals($expected, $params);
     }
 
-    /**
-     * @expectedException Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidClauseException
-     */
     public function testAppendPsToWithACaseInsensitiveLikeConditionThrowsAnException()
     {
+        $this->expectException('Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidClauseException');
         $cton = new LikeModelCriterion(new Criteria(), 'A.COL LIKE ?', 'A.COL', 'foo%');
         $cton->setAdapter(new SqliteAdapter());
         $cton->setIgnoreCase(true);

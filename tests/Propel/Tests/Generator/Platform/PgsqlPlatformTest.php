@@ -19,9 +19,6 @@ use Propel\Generator\Model\PropelTypes;
 use Propel\Generator\Model\Table;
 use Propel\Generator\Platform\PgsqlPlatform;
 
-/**
- *
- */
 class PgsqlPlatformTest extends PlatformTestProvider
 {
     /**

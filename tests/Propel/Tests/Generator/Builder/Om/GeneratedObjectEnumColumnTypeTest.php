@@ -22,7 +22,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedObjectEnumColumnTypeTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('ComplexColumnTypeEntity3')) {
             $schema = <<<EOF
@@ -60,11 +60,9 @@ EOF;
         $this->assertEquals('foo bar', $e->getBar());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testGetterThrowsExceptionOnUnknownKey()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $e = new \PublicComplexColumnTypeEntity3();
         $e->bar = 156;
         $e->getBar();
@@ -90,11 +88,9 @@ EOF;
         $this->assertEquals(6, $e->bar);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testSetterThrowsExceptionOnUnknownValue()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $e = new \ComplexColumnTypeEntity3();
         $e->setBar('bazz');
     }

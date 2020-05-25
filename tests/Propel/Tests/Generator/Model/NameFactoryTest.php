@@ -61,37 +61,37 @@ class NameFactoryTest extends BaseTestCase
      */
     private $database;
 
-    /**
-     * Creates a new instance.
-     *
-     */
-    public function __construct()
+    /** Sets up the Propel model. */
+    public function setUp(): void
     {
+        $schema = new Schema(new MysqlPlatform());
+        $this->database = new Database();
+        $schema->addDatabase($this->database);
+
         self::$INPUTS = [
-                [ [self::makeString(61), "I", 1],
-                        [self::makeString(61), "I", 2],
-                        [self::makeString(65), "I", 3],
-                        [self::makeString(4), "FK", 1],
-                        [self::makeString(5), "FK", 2]
-                    ],
-                [
-                        ["MY_USER", NameGeneratorInterface::CONV_METHOD_UNDERSCORE],
-                        ["MY_USER", NameGeneratorInterface::CONV_METHOD_PHPNAME],
-                        ["MY_USER", NameGeneratorInterface::CONV_METHOD_NOCHANGE]
-                    ]
-                ];
+            [ [self::makeString(61), "I", 1],
+                [self::makeString(61), "I", 2],
+                [self::makeString(65), "I", 3],
+                [self::makeString(4), "FK", 1],
+                [self::makeString(5), "FK", 2]
+            ],
+            [
+                ["MY_USER", NameGeneratorInterface::CONV_METHOD_UNDERSCORE],
+                ["MY_USER", NameGeneratorInterface::CONV_METHOD_PHPNAME],
+                ["MY_USER", NameGeneratorInterface::CONV_METHOD_NOCHANGE]
+            ]
+        ];
 
 
         self::$OUTPUTS = [
-                        [
-                            self::makeString(60) . "_I_1",
-                            self::makeString(60) . "_I_2",
-                            self::makeString(60) . "_I_3",
-                            self::makeString(4) . "_FK_1",
-                            self::makeString(5) . "_FK_2"],
-                        ["MyUser", "MYUSER", "MY_USER"]
-                    ];
-
+            [
+                self::makeString(60) . "_I_1",
+                self::makeString(60) . "_I_2",
+                self::makeString(60) . "_I_3",
+                self::makeString(4) . "_FK_1",
+                self::makeString(5) . "_FK_2"],
+            ["MyUser", "MYUSER", "MY_USER"]
+        ];
     }
 
     /**
@@ -99,29 +99,16 @@ class NameFactoryTest extends BaseTestCase
      * the character <code>A</code>.  Useful for simulating table
      * names, etc.
      *
-     * @param  int $len the number of characters to include in the string
-     * @return a   string of length <code>len</code> with every character an 'A'
+     * @param int $len the number of characters to include in the string
+     * @return string a string of length <code>len</code> with every character an 'A'
      */
     private static function makeString($len)
     {
-        $buf = '';
-        for ($i = 0; $i < $len; $i++) {
-            $buf .= 'A';
-        }
-
-        return $buf;
-    }
-
-    /** Sets up the Propel model. */
-    public function setUp()
-    {
-        $schema = new Schema(new MysqlPlatform());
-        $this->database = new Database();
-        $schema->addDatabase($this->database);
+        return str_repeat('A', $len);
     }
 
     /**
-     * @throws Exception on fail
+     * @throws \Exception on fail
      */
     public function testNames()
     {
@@ -143,15 +130,16 @@ class NameFactoryTest extends BaseTestCase
      * Creates the list of arguments to pass to the specified type of
      * <code>NameGeneratorInterface</code> implementation.
      *
-     * @param      algo The class name of the <code>NameGeneratorInterface</code> to
+     * @param string $algo The class name of the <code>NameGeneratorInterface</code> to
      * create an argument list for.
-     * @param      inputs The (possibly partial) list inputs from which to
+     * @param array $inputs The (possibly partial) list inputs from which to
      * generate the final list.
-     * @return the list of arguments to pass to the <code>NameGeneratorInterface</code>
+     *
+     * @return array the list of arguments to pass to the <code>NameGeneratorInterface</code>
      */
     private function makeInputs($algo, $inputs)
     {
-        if (NameFactory::CONSTRAINT_GENERATOR == $algo) {
+        if (NameFactory::CONSTRAINT_GENERATOR === $algo) {
             array_unshift($inputs, $this->database);
         }
 

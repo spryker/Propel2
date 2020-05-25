@@ -20,7 +20,7 @@ use Propel\Tests\TestCase;
  */
 class ActiveRecordTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         include_once(__DIR__.'/ActiveRecordTestClasses.php');
@@ -44,11 +44,9 @@ class ActiveRecordTest extends TestCase
         $this->assertTrue($b->hasVirtualColumn('foo'), 'hasVirtualColumn() returns true if the virtual column is set and has NULL value');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testGetVirtualColumnWrongKey()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $b = new TestableActiveRecord();
         $b->getVirtualColumn('foo');
     }

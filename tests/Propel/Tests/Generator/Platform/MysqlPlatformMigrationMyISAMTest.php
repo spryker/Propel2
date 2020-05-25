@@ -14,9 +14,6 @@ use Propel\Generator\Config\GeneratorConfig;
 use Propel\Generator\Model\Column;
 use Propel\Generator\Platform\MysqlPlatform;
 
-/**
- *
- */
 class MysqlPlatformMigrationMyISAMTest extends PlatformMigrationTestProvider
 {
     protected $platform;

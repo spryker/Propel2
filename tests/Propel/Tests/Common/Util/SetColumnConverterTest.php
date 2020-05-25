@@ -14,15 +14,15 @@ use Propel\Common\Util\SetColumnConverter;
 
 /**
  * Tests for SetColumnConverter class.
- * 
- * @author Moritz Schroeder <moritz.schroeder@molabs.de> 
+ *
+ * @author Moritz Schroeder <moritz.schroeder@molabs.de>
  */
-class SetColumnConverterTest extends \PHPUnit_Framework_TestCase
+class SetColumnConverterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @param array  $values
      * @param string $validInteger
-     * 
+     *
      * @dataProvider convertValuesProvider
      */
     public function testConvertToIntValidValues(array $values, $validInteger)
@@ -46,11 +46,9 @@ class SetColumnConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0', $intValue);
     }
 
-    /**
-     * @expectedException \Propel\Common\Exception\SetColumnConverterException
-     */
     public function testConvertToIntValueNotInSet()
     {
+        $this->expectException('Propel\Common\Exception\SetColumnConverterException');
         $valueSet = ['a','b','c','d','e','f'];
         SetColumnConverter::convertToInt(['g'], $valueSet);
     }
@@ -75,15 +73,13 @@ class SetColumnConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([], $arrayValue);
     }
 
-    /**
-     * @expectedException \Propel\Common\Exception\SetColumnConverterException
-     */
     public function testConvertIntToArrayIntOutOfRange()
     {
+        $this->expectException('Propel\Common\Exception\SetColumnConverterException');
         $valueSet = ['a','b','c','d','e','f'];
         SetColumnConverter::convertIntToArray('65', $valueSet);
     }
-    
+
     public function convertValuesProvider()
     {
         return [

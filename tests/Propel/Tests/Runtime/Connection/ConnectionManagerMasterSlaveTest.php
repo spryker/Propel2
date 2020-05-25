@@ -32,11 +32,9 @@ class ConnectionManagerMasterSlaveTest extends BaseTestCase
         $this->assertEquals('foo', $manager->getName());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\InvalidArgumentException
-     */
     public function testGetWriteConnectionFailsIfManagerIsNotConfigured()
     {
+        $this->expectException('Propel\Runtime\Exception\InvalidArgumentException');
         $manager = new ConnectionManagerMasterSlave();
         $con = $manager->getWriteConnection(new SqliteAdapter());
     }
@@ -109,7 +107,7 @@ class ConnectionManagerMasterSlaveTest extends BaseTestCase
         $con = $manager->getReadConnection(new SqliteAdapter());
         $pdo = $con->getWrappedConnection();
         $expected = [PDO::CASE_LOWER, PDO::CASE_UPPER];
-        $this->assertContains($pdo->getAttribute(PDO::ATTR_CASE), $expected);
+        $this->assertTrue(in_array($pdo->getAttribute(PDO::ATTR_CASE), $expected));
     }
 
     public function testGetReadConnectionReturnsAConnectionNamedAfterTheManager()

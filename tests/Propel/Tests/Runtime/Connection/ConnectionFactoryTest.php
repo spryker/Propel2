@@ -20,11 +20,9 @@ use \PDO;
 
 class ConnectionFactoryTest extends BaseTestCase
 {
-    /**
-     * @expectedException \Propel\Runtime\Exception\InvalidArgumentException
-     */
     public function testCreateFailsIfGivenIncorrectConfiguration()
     {
+        $this->expectException('Propel\Runtime\Exception\InvalidArgumentException');
         $con = ConnectionFactory::create([], new SqliteAdapter());
     }
 
@@ -73,11 +71,9 @@ class ConnectionFactoryTest extends BaseTestCase
         $this->assertEquals(PDO::CASE_LOWER, $pdo->getAttribute(PDO::ATTR_CASE));
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\InvalidArgumentException
-     */
     public function testCreateFailsWhenPassedAnIncorrectAttributeName()
     {
+        $this->expectException('Propel\Runtime\Exception\InvalidArgumentException');
         $con = ConnectionFactory::create(['dsn' => 'sqlite::memory:', 'attributes' => ['ATTR_CAE' => PDO::CASE_LOWER]], new SqliteAdapter());
     }
 

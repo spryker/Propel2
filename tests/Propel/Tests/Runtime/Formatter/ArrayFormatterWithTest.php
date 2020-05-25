@@ -253,11 +253,9 @@ class ArrayFormatterWithTest extends BookstoreEmptyTestBase
         $this->assertEquals('J.K.', $author['FirstName'], 'Related object is correctly hydrated');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\LogicException
-     */
     public function testFindOneWithOneToManyAndLimit()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
         $c = new ModelCriteria('bookstore', '\Propel\Tests\Bookstore\Book');
         $c->setFormatter(ModelCriteria::FORMAT_ARRAY);
         $c->add(BookTableMap::COL_ISBN, '043935806X');

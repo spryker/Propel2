@@ -147,11 +147,9 @@ class CriteriaMergeTest extends TestCaseFixtures
         $this->assertEquals(['foo' => BookTableMap::COL_TITLE, 'bar' => BookTableMap::COL_ID], $c1->getAsColumns(), 'mergeWith() merges the select columns after the existing as columns');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\LogicException
-     */
     public function testMergeWithAsColumnsThrowsException()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
         $c1 = new Criteria();
         $c1->addAsColumn('foo', BookTableMap::COL_TITLE);
         $c2 = new Criteria();
@@ -387,11 +385,9 @@ class CriteriaMergeTest extends TestCaseFixtures
         $this->assertEquals(['b' => BookTableMap::TABLE_NAME, 'a' => AuthorTableMap::TABLE_NAME], $c1->getAliases(), 'mergeWith() merge aliases to an existing alias');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\LogicException
-     */
     public function testMergeWithAliasesThrowsException()
     {
+        $this->expectException('Propel\Runtime\Exception\LogicException');
         $c1 = new Criteria();
         $c1->addAlias('b', BookTableMap::TABLE_NAME);
         $c2 = new Criteria();

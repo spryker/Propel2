@@ -31,12 +31,12 @@ class StandardServiceContainerTest extends BaseTestCase
      */
     protected $sc;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sc = new StandardServiceContainer;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->sc = null;
     }
@@ -146,7 +146,7 @@ class StandardServiceContainerTest extends BaseTestCase
 
     public function testCheckInvalidVersion()
     {
-        $logger = $this->getMock('Monolog\Logger', ['warning'], ['mylogger']);
+        $logger = $this->createMock('Monolog\Logger', ['warning'], ['mylogger']);
         $logger->expects($this->once())->method('warning');
 
         $this->sc->setLogger('defaultLogger', $logger);
@@ -155,7 +155,7 @@ class StandardServiceContainerTest extends BaseTestCase
 
     public function testCheckValidVersion()
     {
-        $logger = $this->getMock('Monolog\Logger', ['warning'], ['mylogger']);
+        $logger = $this->createMock('Monolog\Logger', ['warning'], ['mylogger']);
         $logger->expects($this->never())->method('warning');
 
         $this->sc->setLogger('defaultLogger', $logger);
@@ -242,11 +242,9 @@ class StandardServiceContainerTest extends BaseTestCase
         $this->assertEquals($expected, $this->sc->getConnectionManagers());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\RuntimeException
-     */
     public function testGetConnectionManagerWithUnknownDatasource()
     {
+        $this->expectException('Propel\Runtime\Exception\RuntimeException');
         $this->sc->getConnectionManager('unknown');
     }
 

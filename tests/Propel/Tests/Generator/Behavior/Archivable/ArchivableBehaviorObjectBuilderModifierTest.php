@@ -24,7 +24,7 @@ use Propel\Tests\TestCase;
  */
 class ArchivableBehaviorObjectBuilderModifierTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         if (!class_exists('\ArchivableTest10')) {
             $schema = <<<EOF
@@ -179,11 +179,9 @@ EOF;
         $this->assertEquals($a->getTitle(), $ret->getTitle());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testArchiveThrowsExceptionOnNewObjects()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $a = new \ArchivableTest10();
         $a->archive();
     }
@@ -193,11 +191,9 @@ EOF;
         $this->assertTrue(method_exists('\ArchivableTest10', 'restoreFromArchive'));
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testRestoreFromArchiveThrowsExceptionOnUnarchivedObjects()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $a = new \ArchivableTest10();
         $a->setTitle('foo');
         $a->setAge(12);

@@ -26,7 +26,7 @@ class ConfigurationManagerTest extends ConfigTestCase
      */
     private $fixturesDir;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->currentDir = getcwd();
         $this->fixturesDir = realpath( __DIR__ . '/../../../../Fixtures') . '/Configuration';
@@ -35,7 +35,7 @@ class ConfigurationManagerTest extends ConfigTestCase
         chdir($this->fixturesDir);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         chdir($this->currentDir);
         $this->getFileSystem()->remove($this->fixturesDir);
@@ -86,6 +86,9 @@ EOF;
         $this->assertEquals('baz', $actual['bar']);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testNotExistingConfigFileLoadsDefaultSettingsAndDoesNotThrowExceptions()
     {
         $yamlConf = <<<EOF
@@ -129,11 +132,11 @@ EOF;
     }
 
     /**
-     * @expectedException Propel\Common\Config\Exception\InvalidArgumentException
      * @exceptionMessage Propel expects only one configuration file
      */
     public function testMoreThanOneConfigurationFileInSameDirectoryThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
         $yamlConf = <<<EOF
 foo: bar
 bar: baz
@@ -149,11 +152,11 @@ EOF;
     }
 
     /**
-     * @expectedException Propel\Common\Config\Exception\InvalidArgumentException
      * @exceptionMessage Propel expects only one configuration file
      */
     public function testMoreThanOneConfigurationFileInDifferentDirectoriesThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
         $yamlConf = <<<EOF
 foo: bar
 bar: baz
@@ -329,12 +332,10 @@ EOF;
         $this->assertEquals($actual['extralevel'], ['extra1' => 'val1', 'extra2' => 'val2']);
     }
 
-    /**
-     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage Unrecognized options "foo, bar" under "propel"
-     */
     public function testInvalidHierarchyTrowsException()
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidConfigurationException');
+        $this->expectExceptionMessage('Unrecognized options "foo, bar" under "propel"');
         $yamlConf = <<<EOF
 runtime:
     foo: bar
@@ -378,12 +379,10 @@ EOF;
         $this->assertEquals(['default'], $manager->get()['generator']['connections']);
     }
 
-    /**
-     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage The child node "database" at path "propel" must be configured
-     */
     public function testNotDefineDatabaseSectionTrowsException()
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidConfigurationException');
+        $this->expectExceptionMessage('The child node "database" at path "propel" must be configured');
         $yamlConf = <<<EOF
 propel:
   general:
@@ -395,12 +394,10 @@ EOF;
         $manager = new ConfigurationManager();
     }
 
-    /**
-     * @expectedException Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage Dots are not allowed in connection names
-     */
     public function testDotInConnectionNamesArentAccepted()
     {
+        $this->expectException('Symfony\Component\Config\Definition\Exception\InvalidConfigurationException');
+        $this->expectExceptionMessage('Dots are not allowed in connection names');
         $yamlConf = <<<EOF
 propel:
   database:
@@ -431,8 +428,8 @@ EOF;
      */
     public function testRuntimeOrGeneratorConnectionIsNotInConfiguredConnectionsThrowsException($yamlConf, $section)
     {
-        $this->setExpectedException("Propel\Common\Config\Exception\InvalidConfigurationException",
-            "`wrongsource` isn't a valid configured connection (Section: propel.$section.connections).");
+        $this->expectException("Propel\Common\Config\Exception\InvalidConfigurationException");
+        $this->expectExceptionMessage("`wrongsource` isn't a valid configured connection (Section: propel.$section.connections).");
 
         $this->getFilesystem()->dumpFile('propel.yaml', $yamlConf);
         $manager = new ConfigurationManager();
@@ -443,8 +440,8 @@ EOF;
      */
     public function testRuntimeOrGeneratorDefaultConnectionIsNotInConfiguredConnectionsThrowsException($yamlConf, $section)
     {
-        $this->setExpectedException("Propel\Common\Config\Exception\InvalidConfigurationException",
-            "`wrongsource` isn't a valid configured connection (Section: propel.$section.defaultConnection).");
+        $this->expectException("Propel\Common\Config\Exception\InvalidConfigurationException");
+        $this->expectExceptionMessage("`wrongsource` isn't a valid configured connection (Section: propel.$section.defaultConnection).");
 
         $this->getFilesystem()->dumpFile('propel.yaml', $yamlConf);
         $manager = new ConfigurationManager();
@@ -572,12 +569,10 @@ EOF;
         $this->assertEquals('root', $manager->getConfigProperty('database.connections.mysource.user'));
     }
 
-    /**
-     * @expectedException Propel\Common\Config\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid configuration property name
-     */
     public function testGetConfigPropertyBadNameThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid configuration property name');
         $yamlConf = <<<EOF
 propel:
   database:

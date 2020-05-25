@@ -28,7 +28,7 @@ use Propel\Runtime\ActiveQuery\PropelQuery;
  */
 class OnDemandCollectionTest extends BookstoreEmptyTestBase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         BookstoreDataPopulator::populate($this->con);
@@ -36,7 +36,7 @@ class OnDemandCollectionTest extends BookstoreEmptyTestBase
         $this->books = PropelQuery::from('\Propel\Tests\Bookstore\Book')->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->books = null;
         parent::tearDown();
@@ -58,35 +58,27 @@ class OnDemandCollectionTest extends BookstoreEmptyTestBase
         }
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testoffsetExists()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $this->books->offsetExists(2);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testoffsetGet()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $this->books->offsetGet(2);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testoffsetSet()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $this->books->offsetSet(2, 'foo');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testoffsetUnset()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $this->books->offsetUnset(2);
     }
 
@@ -96,11 +88,9 @@ class OnDemandCollectionTest extends BookstoreEmptyTestBase
         // since the code from toArray comes from ObjectCollection, we'll assume it's good
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\BadMethodCallException
-     */
     public function testFromArray()
     {
+        $this->expectException('Propel\Runtime\Exception\BadMethodCallException');
         $this->books->fromArray([]);
     }
 

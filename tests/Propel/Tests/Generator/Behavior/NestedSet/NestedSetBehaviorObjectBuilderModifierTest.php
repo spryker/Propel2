@@ -87,12 +87,10 @@ class NestedSetBehaviorObjectBuilderModifierTest extends TestCase
             $this->fail('A saved node can be inserted into the tree');
         }
     }
-
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
+    
     public function testSaveRootInTreeWithExistingRoot()
     {
+        $this->expectException(PropelException::class);
         \Map\NestedSetTable9TableMap::doDeleteAll();
         $t1 = new \NestedSetTable9();
         $t1->makeRoot();

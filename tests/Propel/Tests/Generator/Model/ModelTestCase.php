@@ -9,6 +9,7 @@
  */
 
 namespace Propel\Tests\Generator\Model;
+
 use Propel\Generator\Model\Index;
 use Propel\Tests\TestCase;
 
@@ -36,10 +37,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $behavior = $this
-            ->getMockBuilder('Propel\Generator\Model\Behavior')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $behavior = $this->createMock('Propel\Generator\Model\Behavior')
         ;
 
         $behavior
@@ -104,10 +102,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $fk = $this
-            ->getMockBuilder('Propel\Generator\Model\ForeignKey')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $fk = $this->createMock('Propel\Generator\Model\ForeignKey')
         ;
 
         $fk
@@ -158,10 +153,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $index = $this
-            ->getMockBuilder('Propel\Generator\Model\Index')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $index = $this->createMock('Propel\Generator\Model\Index')
         ;
         $index
             ->expects($this->once())
@@ -185,10 +177,7 @@ abstract class ModelTestCase extends TestCase
      */
     protected function getUniqueIndexMock($name = null, array $options = [])
     {
-        $unique = $this
-            ->getMockBuilder('Propel\Generator\Model\Unique')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $unique = $this->createMock('Propel\Generator\Model\Unique')
         ;
         $unique
             ->expects($this->once())
@@ -218,10 +207,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $schema = $this
-            ->getMockBuilder('Propel\Generator\Model\Schema')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $schema = $this->createMock('Propel\Generator\Model\Schema')
         ;
         $schema
             ->expects($this->any())
@@ -253,10 +239,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $platform = $this
-            ->getMockBuilder('Propel\Generator\Platform\DefaultPlatform')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $platform = $this->createMock('Propel\Generator\Platform\DefaultPlatform')
         ;
 
         $platform
@@ -293,10 +276,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $domain = $this
-            ->getMockBuilder('Propel\Generator\Model\Domain')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $domain = $this->createMock('Propel\Generator\Model\Domain')
         ;
 
         $domain
@@ -330,10 +310,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $table = $this
-            ->getMockBuilder('Propel\Generator\Model\Table')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $table = $this->createMock('Propel\Generator\Model\Table')
         ;
 
         $table
@@ -408,10 +385,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $database = $this
-            ->getMockBuilder('Propel\Generator\Model\Database')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $database = $this->createMock('Propel\Generator\Model\Database')
         ;
         $database
             ->expects($this->any())
@@ -442,10 +416,7 @@ abstract class ModelTestCase extends TestCase
 
         $options = array_merge($defaults, $options);
 
-        $column = $this
-            ->getMockBuilder('Propel\Generator\Model\Column')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $column = $this->createMock('Propel\Generator\Model\Column')
         ;
 
         $column

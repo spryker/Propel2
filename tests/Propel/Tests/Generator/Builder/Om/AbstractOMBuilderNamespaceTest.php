@@ -105,11 +105,9 @@ class AbstractOMBuilderNamespaceTest extends TestCase
         $this->assertEquals(['Foo' => ['Foo' => 'Foo', 'Bar' => 'Bar'], 'Bar' => ['Bar' => 'Bar2']], $builder->getDeclaredClasses());
     }
 
-    /**
-     * @expectedException \Propel\Generator\Exception\LogicException
-     */
     public function testDeclareClassNamespaceDuplicateException()
     {
+        $this->expectException('Propel\Generator\Exception\LogicException');
         $builder = new TestableOMBuilder2(new Table('fooTable'));
         $builder->declareClassNamespace('Bar');
         $builder->declareClassNamespace('Bar', 'Foo');

@@ -35,12 +35,12 @@ use \Exception;
  */
 class PropelPDOTest extends BookstoreTestBase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->con = Propel::getServiceContainer()->getConnection(BookTableMap::DATABASE_NAME);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 
@@ -81,7 +81,10 @@ class PropelPDOTest extends BookstoreTestBase
         }
     }
 
-	public function testPdoSignature()
+	/**
+  * @doesNotPerformAssertions
+  */
+ public function testPdoSignature()
 	{
 		$con = Propel::getServiceContainer()->getConnection(BookTableMap::DATABASE_NAME);
 		$stmt = $con->prepare('SELECT author.FIRST_NAME, author.LAST_NAME FROM author');

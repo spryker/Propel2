@@ -24,11 +24,9 @@ use \PDO;
  */
 class RawCriterionTest extends BaseTestCase
 {
-    /**
-     * @expectedException Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidClauseException
-     */
     public function testAppendPsToThrowsExceptionWhenClauseHasNoQuestionMark()
     {
+        $this->expectException('Propel\Runtime\ActiveQuery\Criterion\Exception\InvalidClauseException');
         $cton = new RawCriterion(new Criteria(), 'A.COL = BAR', 1, PDO::PARAM_INT);
 
         $params = [];

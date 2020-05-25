@@ -34,11 +34,9 @@ class PropelExceptionTest extends TestCase
         $this->assertEquals('this is an error', $e->getMessage());
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testIsThrowable()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $e = new PropelException('this is an error');
         throw $e;
     }

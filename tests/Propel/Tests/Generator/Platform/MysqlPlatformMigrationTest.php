@@ -15,9 +15,6 @@ use Propel\Generator\Model\Column;
 use Propel\Generator\Model\Diff\DatabaseComparator;
 use Propel\Generator\Platform\MysqlPlatform;
 
-/**
- *
- */
 class MysqlPlatformMigrationTest extends MysqlPlatformMigrationTestProvider
 {
     protected $platform;

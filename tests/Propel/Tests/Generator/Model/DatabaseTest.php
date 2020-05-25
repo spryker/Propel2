@@ -74,8 +74,7 @@ class DatabaseTest extends ModelTestCase
 
     public function testDoFinalization()
     {
-        $config = $this->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-                            ->disableOriginalConstructor()->getMock();
+        $config = $this->createMock('Propel\Generator\Config\GeneratorConfig');
 
         $schema = $this->getSchemaMock('bookstore', [
             'generator_config' => $config
@@ -126,7 +125,7 @@ class DatabaseTest extends ModelTestCase
 
     public function testCantAddInvalidBehavior()
     {
-        $this->setExpectedException('Propel\Generator\Exception\BehaviorNotFoundException');
+        $this->expectException('Propel\Generator\Exception\BehaviorNotFoundException');
 
         $database = new Database();
         $behavior = $database->addBehavior(['name' => 'foo']);
@@ -262,7 +261,7 @@ class DatabaseTest extends ModelTestCase
 
     public function testAddSameTableTwice()
     {
-        $this->setExpectedException('Propel\Generator\Exception\EngineException');
+        $this->expectException('Propel\Generator\Exception\EngineException');
 
         $database = new Database();
         $database->addTable(['name' => 'authors']);
@@ -288,8 +287,7 @@ class DatabaseTest extends ModelTestCase
 
     public function testGetGeneratorConfig()
     {
-        $config = $this->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-            ->disableOriginalConstructor()->getMock();
+        $config = $this->createMock('Propel\Generator\Config\GeneratorConfig');
 
         $schema = $this->getSchemaMock('bookstore', [
             'generator_config' => $config
@@ -303,8 +301,7 @@ class DatabaseTest extends ModelTestCase
 
     public function testGetBuildProperty()
     {
-        $config = $this->getMockBuilder('Propel\Generator\Config\GeneratorConfig')
-            ->disableOriginalConstructor()->getMock();
+        $config = $this->createMock('Propel\Generator\Config\GeneratorConfig');
 
         $config
             ->expects($this->once())
@@ -360,7 +357,7 @@ class DatabaseTest extends ModelTestCase
 
     public function testSetInvalidDefaultStringFormat()
     {
-        $this->setExpectedException('Propel\Generator\Exception\InvalidArgumentException');
+        $this->expectException('Propel\Generator\Exception\InvalidArgumentException');
 
         $database = new Database();
         $database->setDefaultStringFormat('FOO');

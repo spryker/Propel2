@@ -165,7 +165,7 @@ class DomainTest extends ModelTestCase
         $domain = new Domain();
         $domain->setDefaultValue($value);
 
-        $this->setExpectedException('Propel\Generator\Exception\EngineException');
+        $this->expectException('Propel\Generator\Exception\EngineException');
         $domain->getPhpDefaultValue();
     }
 
@@ -216,10 +216,7 @@ class DomainTest extends ModelTestCase
 
     private function getColumnDefaultValueMock()
     {
-        $value = $this
-            ->getMockBuilder('Propel\Generator\Model\ColumnDefaultValue')
-            ->disableOriginalConstructor()
-            ->getMock()
+        $value = $this->createMock('Propel\Generator\Model\ColumnDefaultValue')
         ;
 
         return $value;

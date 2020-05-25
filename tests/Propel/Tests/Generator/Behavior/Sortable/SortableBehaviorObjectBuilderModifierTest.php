@@ -23,7 +23,7 @@ use Propel\Tests\Bookstore\Behavior\SortableTable11 as Table11;
  */
 class SortableBehaviorObjectBuilderModifierTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -113,20 +113,16 @@ class SortableBehaviorObjectBuilderModifierTest extends TestCase
         $this->assertEquals($expected, $this->getFixturesArray(), 'insertAtRank() can insert an object at the end of the list');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testInsertAtNegativeRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = new Table11();
         $t->insertAtRank(0);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testInsertAtOverMaxRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = new Table11();
         $t->insertAtRank(6);
     }
@@ -172,29 +168,23 @@ class SortableBehaviorObjectBuilderModifierTest extends TestCase
         $this->assertEquals($expected, $this->getFixturesArray(), 'moveToRank() can move down');
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testMoveToNewObject()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = new Table11();
         $t->moveToRank(2);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testMoveToNegativeRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = SortableTable11Query::retrieveByRank(2);
         $t->moveToRank(0);
     }
 
-    /**
-     * @expectedException \Propel\Runtime\Exception\PropelException
-     */
     public function testMoveToOverMaxRank()
     {
+        $this->expectException('Propel\Runtime\Exception\PropelException');
         $t = SortableTable11Query::retrieveByRank(2);
         $t->moveToRank(5);
     }

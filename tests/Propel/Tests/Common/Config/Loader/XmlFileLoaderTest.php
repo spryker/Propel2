@@ -18,7 +18,7 @@ class XmlFileLoaderTest extends ConfigTestCase
 {
     protected $loader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->loader = new XmlFileLoader(new FileLocator(sys_get_temp_dir()));
     }
@@ -48,21 +48,17 @@ XML;
         $this->assertEquals('baz', $test['bar']);
     }
 
-    /**
-     * @expectedException        \InvalidArgumentException
-     * @expectedExceptionMessage The file "inexistent.xml" does not exist (in:
-     */
     public function testXmlFileDoesNotExist()
     {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage('The file "inexistent.xml" does not exist (in:');
         $this->loader->load('inexistent.xml');
     }
 
-    /**
-     * @expectedException        Propel\Common\Config\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Invalid xml content
-     */
     public function testXmlFileHasInvalidContent()
     {
+        $this->expectException('Propel\Common\Config\Exception\InvalidArgumentException');
+        $this->expectExceptionMessage('Invalid xml content');
         $content = <<<EOF
 not xml content
 only plain
@@ -84,12 +80,12 @@ EOF;
     }
 
     /**
-     * @expectedException Propel\Common\Config\Exception\InputOutputException
-     * @expectedExceptionMessage You don't have permissions to access configuration file notreadable.xml.
      * @requires OS ^(?!Win.*)
      */
     public function testXmlFileNotReadableThrowsException()
     {
+        $this->expectException('Propel\Common\Config\Exception\InputOutputException');
+        $this->expectExceptionMessage('You don\'t have permissions to access configuration file notreadable.xml.');
         $content = <<< XML
 <?xml version='1.0' standalone='yes'?>
 <properties>
