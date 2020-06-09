@@ -163,7 +163,7 @@ class ModelManager extends AbstractManager
 
         // skip files already created once
         if ($file->isFile() && !$overwrite) {
-            $this->log("\t-> (exists) " . $builder->getClassFilePath());
+            //$this->log("\t-> (exists) " . $builder->getClassFilePath());
 
             return 0;
         }
@@ -175,7 +175,7 @@ class ModelManager extends AbstractManager
 
         // skip unchanged files
         if ($file->isFile() && $script == file_get_contents($file->getPathname())) {
-            $this->log("\t-> (unchanged) " . $builder->getClassFilePath());
+            //$this->log("\t-> (unchanged) " . $builder->getClassFilePath());
 
             return 0;
         }
