@@ -8,11 +8,11 @@ php:
   - nightly
 
 env:
+  global:
+    - PGPORT=5432
   - DB=agnostic #only database agnostic tests
   - DB=mysql
   - DB=sqlite
-  global:
-    - PGPORT=5432
 
 
 install:
