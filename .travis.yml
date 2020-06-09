@@ -10,9 +10,10 @@ php:
 env:
   global:
     - PGPORT=5432
-  - DB=agnostic #only database agnostic tests
-  - DB=mysql
-  - DB=sqlite
+  jobs:
+    - DB=agnostic #only database agnostic tests
+    - DB=mysql
+    - DB=sqlite
 
 
 install:
