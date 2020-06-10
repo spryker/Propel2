@@ -51,13 +51,18 @@ class ValidateBehavior extends Behavior
 
         //if SF >= 2.5 use new validator classes
         if(class_exists('Symfony\\Component\\Validator\\Validator\\RecursiveValidator')) {
+            if(class_exists('Symfony\\Component\\Translation\\IdentityTranslator')) {
+                $identityTranslatorClassPath = 'Symfony\\Component\\Translation\\IdentityTranslator';
+            } else {
+                $identityTranslatorClassPath = 'Symfony\\Component\\Validator\\Validator\\IdentityTranslator';
+            }
             $this->builder->declareClasses(
                 'Symfony\\Component\\Validator\\Validator\\RecursiveValidator',
                 'Symfony\\Component\\Validator\\Context\\ExecutionContextFactory',
                 'Symfony\\Component\\Validator\\Mapping\\Factory\LazyLoadingMetadataFactory',
                 'Symfony\\Component\\Validator\\Context\\ExecutionContextInterface',
                 'Symfony\\Component\\Validator\\Validator\\ValidatorInterface',
-                'Symfony\\Component\\Translation\\IdentityTranslator'
+                $identityTranslatorClassPath
             );
         } else {
             $this->builder->declareClasses(
