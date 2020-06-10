@@ -317,7 +317,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertEquals(1, count($failures), 'Only one constraint violation object');
+        $this->assertEquals(1, count($failures), 'Only one constraint violation object', $book->getValidationFailures());
 
         $failure = $failures[0];
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
