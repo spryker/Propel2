@@ -208,26 +208,23 @@ jobs:
       addons:
         postgresql: 11
 
-    - php: 7.0
-      env: DB=pgsql POSTGRES=12
-      addons:
-        postgresql: 12
-    - php: 7.1
-      env: DB=pgsql POSTGRES=12
-      addons:
-        postgresql: 12
-    - php: 7.3
-      env: DB=pgsql POSTGRES=12
-      addons:
-        postgresql: 12
-    - php: 7.4
-      env: DB=pgsql POSTGRES=12
-      addons:
-        postgresql: 12
-    - php: 7.2
-      env: DB=pgsql POSTGRES=12
-      addons:
-        postgresql: 12
+# Travis-ci doesn't know how to install postgres 12
+#   - php: 7.1
+#     env: DB=pgsql POSTGRES=12
+#     addons:
+#       postgresql: 12
+#   - php: 7.3
+#     env: DB=pgsql POSTGRES=12
+#     addons:
+#       postgresql: 12
+#   - php: 7.4
+#     env: DB=pgsql POSTGRES=12
+#     addons:
+#       postgresql: 12
+#   - php: 7.2
+#     env: DB=pgsql POSTGRES=12
+#     addons:
+#       postgresql: 12
 
 
   allow_failures:
