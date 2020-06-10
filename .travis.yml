@@ -1,5 +1,13 @@
 language: php
 
+git:
+  strategy: clone
+  depth: 1
+  quiet: true
+
+# todo
+# dist: bionic
+
 php:
   - 5.6
   - 7.0
@@ -29,8 +37,7 @@ before_script:
 script:
   - ./vendor/bin/phpunit -v -c tests/$DB.phpunit.xml;
 
-
-matrix:
+jobs:
   include:
     - php: 5.6
       env: DB=mysql MARIADB=10.1
