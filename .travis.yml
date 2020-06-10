@@ -8,7 +8,6 @@ git:
 dist: bionic
 
 php:
-  - 7.0
   - 7.1
   - 7.2
   - 7.3
@@ -38,10 +37,6 @@ script:
 
 jobs:
   include:
-    - php: 7.0
-      env: DB=mysql MARIADB=10.1
-      addons:
-        mariadb: 10.1
     - php: 7.1
       env: DB=mysql MARIADB=10.1
       addons:
@@ -51,10 +46,6 @@ jobs:
       addons:
         mariadb: 10.1
 
-    - php: 7.0
-      env: DB=mysql MARIADB=10.2
-      addons:
-        mariadb: 10.2
     - php: 7.1
       env: DB=mysql MARIADB=10.2
       addons:
@@ -64,10 +55,6 @@ jobs:
       addons:
         mariadb: 10.2
 
-    - php: 7.0
-      env: DB=mysql MARIADB=10.2
-      addons:
-        mariadb: 10.2
     - php: 7.1
       env: DB=mysql MARIADB=10.2
       addons:
@@ -77,10 +64,6 @@ jobs:
       addons:
         mariadb: 10.2
 
-    - php: 7.0
-      env: DB=mysql MARIADB=10.3
-      addons:
-        mariadb: 10.3
     - php: 7.1
       env: DB=mysql MARIADB=10.3
       addons:
@@ -90,10 +73,6 @@ jobs:
       addons:
         mariadb: 10.3
 
-    - php: 7.0
-      env: DB=mysql 4ARIADB=10.4
-      addons:
-        mariadb: 10.4
     - php: 7.1
       env: DB=mysql 4ARIADB=10.4
       addons:
@@ -103,10 +82,6 @@ jobs:
       addons:
         mariadb: 10.4
 
-    - php: 7.0
-      env: DB=pgsql POSTGRES=9.4
-      addons:
-        postgresql: 9.4
     - php: 7.1
       env: DB=pgsql POSTGRES=9.4
       addons:
@@ -116,10 +91,6 @@ jobs:
       addons:
         postgresql: 9.4
 
-    - php: 7.0
-      env: DB=pgsql POSTGRES=9.5
-      addons:
-        postgresql: 9.5
     - php: 7.1
       env: DB=pgsql POSTGRES=9.5
       addons:
@@ -129,10 +100,6 @@ jobs:
       addons:
         postgresql: 9.5
 
-    - php: 7.0
-      env: DB=pgsql POSTGRES=9.6
-      addons:
-        postgresql: 9.6
     - php: 7.1
       env: DB=pgsql POSTGRES=9.6
       addons:
@@ -142,10 +109,6 @@ jobs:
       addons:
         postgresql: 9.6
 
-    - php: 7.0
-      env: DB=pgsql POSTGRES=10
-      addons:
-        postgresql: 10
     - php: 7.1
       env: DB=pgsql POSTGRES=10
       addons:
@@ -155,10 +118,6 @@ jobs:
       addons:
         postgresql: 10
 
-    - php: 7.0
-      env: DB=pgsql POSTGRES=11
-      addons:
-        postgresql: 11
     - php: 7.1
       env: DB=pgsql POSTGRES=11
       addons:
@@ -168,10 +127,6 @@ jobs:
       addons:
         postgresql: 11
 
-    - php: 7.0
-      env: DB=pgsql POSTGRES=12
-      addons:
-        postgresql: 12
     - php: 7.1
       env: DB=pgsql POSTGRES=12
       addons:
