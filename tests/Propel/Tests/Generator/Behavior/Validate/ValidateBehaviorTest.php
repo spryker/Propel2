@@ -229,8 +229,8 @@ EOF;
         $book->addValidateReader($reader1);
         $book->addValidateReader($reader2);
 
-        $res = $book->validate();
-        $this->assertTrue($res, 'Expected validation is successful');
+        $isValid = $book->validate();
+        $this->assertTrue($isValid, 'Expected validation is successful', $book->getValidationFailures());
     }
 
     public function testSingleValidationFailure()
@@ -312,7 +312,7 @@ EOF;
 
         $res = $book->validate();
 
-        $this->assertFalse($res, 'This validation expected to fail');
+        $this->assertFalse($res, 'This validation expected to fail', $book->getValidationFailures());
 
         $failures = $book->getValidationFailures();
 
@@ -359,7 +359,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertEquals(1, count($failures), 'Only one constraint violation object');
+        $this->assertEquals(1, count($failures), 'Only one constraint violation object', $book->getValidationFailures());
 
         $failure = $failures[0];
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
@@ -423,7 +423,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertEquals(5, count($failures), 'Five constraint violation objects expected.');
+        $this->assertEquals(5, count($failures), 'Five constraint violation objects expected.', $book->getValidationFailures());
 
         foreach ($failures as $failure) {
             $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
