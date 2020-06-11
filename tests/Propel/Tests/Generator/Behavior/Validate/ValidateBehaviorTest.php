@@ -312,16 +312,16 @@ EOF;
 
         $res = $book->validate();
 
-        $this->assertFalse($res, 'This validation expected to fail', $book->getValidationFailures());
+        $this->assertFalse($res, 'This validation expected to fail');
 
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertEquals(1, count($failures), 'Only one constraint violation object', $book->getValidationFailures());
+        $this->assertCount(1, $failures, 'Only one constraint violation object');
 
         $failure = $failures[0];
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
-        $this->assertEquals('title', $failure->getPropertyPath(), 'title property expected to fail');
+        $this->assertSame('title', $failure->getPropertyPath(), 'title property expected to fail');
     }
 
     public function testComplexValidationRelatedObjectsSingleFailure()
@@ -359,7 +359,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertEquals(1, count($failures), 'Only one constraint violation object', $book->getValidationFailures());
+        $this->assertCount(1, $failures, 'Only one constraint violation object');
 
         $failure = $failures[0];
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
@@ -423,7 +423,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertEquals(5, count($failures), 'Five constraint violation objects expected.', $book->getValidationFailures());
+        $this->assertCount(5, $failures, 'Five constraint violation objects expected.');
 
         foreach ($failures as $failure) {
             $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
