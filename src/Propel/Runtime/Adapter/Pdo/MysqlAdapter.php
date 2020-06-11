@@ -10,6 +10,7 @@
 
 namespace Propel\Runtime\Adapter\Pdo;
 
+use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\Adapter\SqlAdapterInterface;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Map\ColumnMap;
@@ -195,5 +196,42 @@ class MysqlAdapter extends PdoAdapter implements SqlAdapterInterface
         }
 
         return parent::prepareParams($params);
+    }
+
+    /**
+     * @param Criteria $criteria
+     *
+     * @return string
+     */
+    public function getGroupBy(Criteria $criteria)
+    {
+        // todo: this should become a mysql LEGACY and mysql MODERN adapter
+        $groupBy = $criteria->getGroupByColumns();
+
+        if (!$groupBy) {
+            return '';
+        }
+
+        // check if all selected columns are groupBy'ed.
+        $selected = $this->getPlainSelectedColumns($criteria);
+        $asSelects = $criteria->getAsColumns();
+
+        foreach ($selected as $colName) {
+            if (!in_array($colName, $groupBy)) {
+
+                // is a alias there that is grouped?
+                if ($alias = array_search($colName, $asSelects)) {
+                    if (in_array($alias, $groupBy)) {
+                        continue; //yes, alias is selected.
+                    }
+                }
+                $groupBy[] = $colName;
+            }
+        }
+
+        if ($groupBy) {
+            return ' GROUP BY ' . implode(',', $groupBy);
+        }
+
     }
 }
