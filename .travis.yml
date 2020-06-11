@@ -54,6 +54,7 @@ jobs:
 #     env: DB=mysql MARIADB=10.1
 #     addons:
 #       mariadb: 10.1
+#       TODO maria 5.5 is not EOL yet.
 
     - php: 7.1
       env: DB=mysql MARIADB=10.2
