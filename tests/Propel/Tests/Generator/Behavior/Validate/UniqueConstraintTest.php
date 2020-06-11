@@ -28,7 +28,7 @@ class UniqueConstraintTest extends BookstoreTestBase
         $publisher = new Publisher();
         $publisher->setName('Happy Reading');
         $publisher->setWebsite('http://www.happyreading.com');
-        $this->assertTrue($publisher->validate(), $publisher->getValidationFailures());
+        $this->assertTrue($publisher->validate(), $publisher->getValidationFailures(), $publisher->getValidationFailures());
     }
 
     public function testUniqueValidatorIgnoresItself()
@@ -39,7 +39,7 @@ class UniqueConstraintTest extends BookstoreTestBase
 
         $publisher->setName('Happy Reading');
 
-        $this->assertTrue($publisher->validate(), $publisher->getValidationFailures());
+        $this->assertTrue($publisher->validate(), $publisher->getValidationFailures(), $publisher->getValidationFailures());
 
         $publisher->delete();
     }

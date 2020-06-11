@@ -317,7 +317,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertCount(1, $failures, 'Only one constraint violation object');
+        $this->assertCount(1, $failures, 'Only one constraint violation object', $failures);
 
         $failure = $failures[0];
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
@@ -359,7 +359,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertCount(1, $failures, 'Only one constraint violation object');
+        $this->assertCount(1, $failures, 'Only one constraint violation object', $failures);
 
         $failure = $failures[0];
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
@@ -423,7 +423,7 @@ EOF;
         $failures = $book->getValidationFailures();
 
         $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolationList', $failures);
-        $this->assertCount(5, $failures, 'Five constraint violation objects expected.');
+        $this->assertCount(5, $failures, 'Five constraint violation objects expected.', $failures);
 
         foreach ($failures as $failure) {
             $this->assertInstanceOf('Symfony\Component\Validator\ConstraintViolation', $failure);
