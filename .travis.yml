@@ -35,19 +35,19 @@ jobs:
       env: DB=agnostic
       install:
         - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
-        - COMPOSER=./tests/composer/composer-php8.json composer install
+        - COMPOSER=./tests/composer/composer-php8.json composer install --ignore-platform-reqs
         - composer show
     - php: nightly
       env: DB=mysql
       install:
         - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
-        - COMPOSER=./tests/composer/composer-php8.json composer install
+        - COMPOSER=./tests/composer/composer-php8.json composer install --ignore-platform-reqs
         - composer show
     - php: nightly
       env: DB=sqlite
       install:
         - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
-        - COMPOSER=./tests/composer/composer-php8.json composer install
+        - COMPOSER=./tests/composer/composer-php8.json composer install --ignore-platform-reqs
         - composer show
 
     - name: "mysql sf ^4"
@@ -80,6 +80,42 @@ jobs:
         - composer show
     - name: "mysql sf ^44"
       php: 7.4
+      env: DB=mysql
+      install:
+        - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+        - COMPOSER=./tests/composer/composer-symfony44-min.json composer install
+        - composer show
+
+    - name: "mysql sf ^4"
+      php: 7.3
+      env: DB=mysql
+      install:
+        - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+        - COMPOSER=./tests/composer/composer-symfony4-min.json composer install
+        - composer show
+    - name: "mysql sf ^41"
+      php: 7.3
+      env: DB=mysql
+      install:
+        - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+        - COMPOSER=./tests/composer/composer-symfony41-min.json composer install
+        - composer show
+    - name: "mysql sf ^42"
+      php: 7.3
+      env: DB=mysql
+      install:
+        - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+        - COMPOSER=./tests/composer/composer-symfony42-min.json composer install
+        - composer show
+    - name: "mysql sf ^43"
+      php: 7.3
+      env: DB=mysql
+      install:
+        - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+        - COMPOSER=./tests/composer/composer-symfony43-min.json composer install
+        - composer show
+    - name: "mysql sf ^44"
+      php: 7.3
       env: DB=mysql
       install:
         - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
