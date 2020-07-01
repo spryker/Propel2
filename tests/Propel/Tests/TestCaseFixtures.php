@@ -109,7 +109,7 @@ class TestCaseFixtures extends TestCase
         if (0 !== $app->run($input, $output)) {
             echo $output->fetch();
             $this->fail('Can not initialize fixtures.');
-            return false;
+            return;
         }
 
 
