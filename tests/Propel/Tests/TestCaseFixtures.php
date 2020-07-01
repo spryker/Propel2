@@ -46,7 +46,7 @@ class TestCaseFixtures extends TestCase
     /**
      * Setup fixture. Needed here because we want to have a realistic code coverage value.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $dsn = $this->getFixturesConnectionDsn();
 
