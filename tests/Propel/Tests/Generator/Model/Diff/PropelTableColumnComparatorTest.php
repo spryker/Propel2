@@ -24,7 +24,7 @@ use \Propel\Tests\TestCase;
  */
 class PropelTableColumnComparatorTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->platform = new MysqlPlatform();
     }

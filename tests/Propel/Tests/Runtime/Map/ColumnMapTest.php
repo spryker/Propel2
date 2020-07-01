@@ -28,7 +28,7 @@ class ColumnMapTest extends TestCaseFixtures
 {
     protected $databaseMap;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->dmap = new DatabaseMap('foodb');

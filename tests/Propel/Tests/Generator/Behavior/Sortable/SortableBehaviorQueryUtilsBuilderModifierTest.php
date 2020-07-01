@@ -24,7 +24,7 @@ use Propel\Tests\Bookstore\Behavior\Map\SortableTable11TableMap;
  */
 class SortableBehaviorQueryUtilsBuilderModifierTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

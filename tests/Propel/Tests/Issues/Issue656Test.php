@@ -13,7 +13,7 @@ use Propel\Tests\TestCase;
 class Issue656Test extends TestCase
 {
 
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('\Issue656TestObject')) {
             $schema = <<<EOF

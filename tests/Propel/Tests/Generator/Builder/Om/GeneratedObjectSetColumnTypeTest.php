@@ -25,7 +25,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedObjectSetColumnTypeTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('MyNameSpace\\ComplexColumnTypeEntitySet')) {
             $schema = <<<EOF

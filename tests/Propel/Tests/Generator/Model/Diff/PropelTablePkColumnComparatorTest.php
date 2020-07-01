@@ -23,7 +23,7 @@ use \Propel\Tests\TestCase;
  */
 class PropelTablePkColumnComparatorTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         $this->platform = new MysqlPlatform();
     }

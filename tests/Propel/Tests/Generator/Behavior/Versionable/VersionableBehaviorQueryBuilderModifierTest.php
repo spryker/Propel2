@@ -19,7 +19,7 @@ use Propel\Generator\Util\QuickBuilder;
  */
 class VersionableBehaviorQueryBuilderModifierTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('VersionableBehaviorTest10')) {
             $schema = <<<EOF

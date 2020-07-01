@@ -15,7 +15,7 @@ use Propel\Tests\TestCase;
 
 class GeneratedObjectWithDateImmutableClassTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('Foo\SomeTableA')) {
             $schema = <<<EOF

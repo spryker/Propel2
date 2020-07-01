@@ -26,7 +26,7 @@ use Propel\Tests\TestCase;
  */
 class I18nBehaviorObjectBuilderModifierTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('\I18nBehaviorTest1')) {
             $schema = <<<EOF

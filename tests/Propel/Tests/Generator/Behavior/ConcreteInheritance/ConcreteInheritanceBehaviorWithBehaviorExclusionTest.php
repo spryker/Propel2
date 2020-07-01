@@ -22,7 +22,7 @@ use Propel\Tests\TestCase;
  */
 class ConcreteInheritanceBehaviorWithBehaviorExclusionTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

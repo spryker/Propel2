@@ -20,7 +20,7 @@ use Propel\Runtime\ActiveQuery\Criteria;
  */
 class GeneratedQuerySetColumnTypeTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('\ComplexColumnTypeEntitySet2')) {
             $schema = <<<EOF

@@ -26,7 +26,7 @@ class ConfigurationManagerTest extends ConfigTestCase
      */
     private $fixturesDir;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->currentDir = getcwd();
         $this->fixturesDir = realpath( __DIR__ . '/../../../../Fixtures') . '/Configuration';

@@ -12,7 +12,7 @@ use Propel\Generator\Util\QuickBuilder;
  */
 class Issue989Test extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         if (!class_exists('\Nature')) {

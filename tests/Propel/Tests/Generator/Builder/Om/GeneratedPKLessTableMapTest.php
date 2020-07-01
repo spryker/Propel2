@@ -18,7 +18,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedPKLessTableMapTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (class_exists('Stuff')) {
             return;

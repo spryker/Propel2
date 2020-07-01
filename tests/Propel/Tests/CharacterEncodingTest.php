@@ -47,7 +47,7 @@ class CharacterEncodingTest extends BookstoreTestBase
      */
     private $adapter;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         if (!extension_loaded('iconv')) {

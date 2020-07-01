@@ -80,7 +80,7 @@ class NameFactoryTest extends BaseTestCase
     }
 
     /** Sets up the Propel model. */
-    public function setUp()
+    protected function setUp(): void
     {
         $this->inputs = [
             [

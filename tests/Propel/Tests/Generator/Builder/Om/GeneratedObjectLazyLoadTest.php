@@ -21,7 +21,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedObjectLazyLoadTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('LazyLoadActiveRecord')) {
             $schema = <<<EOF

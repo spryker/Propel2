@@ -130,7 +130,7 @@ EOF;
         $this->assertEquals($expectedSchema, $schema->toString());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->reader = new SchemaReader();
     }

@@ -16,7 +16,7 @@ use Propel\Tests\TestCase;
 class Issue1463Test extends TestCase
 {
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

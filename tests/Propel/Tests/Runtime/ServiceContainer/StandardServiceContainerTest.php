@@ -31,7 +31,7 @@ class StandardServiceContainerTest extends BaseTestCase
      */
     protected $sc;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->sc = new StandardServiceContainer;
     }

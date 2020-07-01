@@ -27,7 +27,7 @@ class TableMapTest extends TestCase
 {
     protected $databaseMap;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->databaseMap = new DatabaseMap('foodb');

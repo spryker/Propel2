@@ -15,7 +15,7 @@ use \Propel\Tests\TestCase;
 
 class GeneratedObjectWithInterfaceTest extends TestCase
 {
-      public function setUp()
+      protected function setUp(): void
       {
             if (!class_exists('Foo\MyClassWithInterface')) {
                   $schema = <<<EOF

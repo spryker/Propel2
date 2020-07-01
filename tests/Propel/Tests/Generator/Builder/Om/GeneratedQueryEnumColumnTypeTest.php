@@ -23,7 +23,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedQueryEnumColumnTypeTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('\ComplexColumnTypeEntity13')) {
             $schema = <<<EOF

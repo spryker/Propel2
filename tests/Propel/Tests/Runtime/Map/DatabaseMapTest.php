@@ -27,7 +27,7 @@ class DatabaseMapTest extends TestCaseFixtures
 {
     protected $databaseMap;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->databaseName = 'foodb';

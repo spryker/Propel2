@@ -30,7 +30,7 @@ class GeneratorConfigTest extends ConfigTestCase
         $refProp->setValue($this->generatorConfig, $config);
     }
 
-    public function setUp()
+    protected function setUp(): void
     {
         $php = "
 <?php

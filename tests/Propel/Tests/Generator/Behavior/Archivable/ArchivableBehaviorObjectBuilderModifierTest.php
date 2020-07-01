@@ -24,7 +24,7 @@ use Propel\Tests\TestCase;
  */
 class ArchivableBehaviorObjectBuilderModifierTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('\ArchivableTest10')) {
             $schema = <<<EOF

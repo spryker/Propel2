@@ -40,7 +40,7 @@ class CriteriaCombineTest extends BaseTestCase
      */
     private $savedAdapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Propel::init(__DIR__ . '/../../../../Fixtures/bookstore/build/conf/bookstore-conf.php');
         parent::setUp();

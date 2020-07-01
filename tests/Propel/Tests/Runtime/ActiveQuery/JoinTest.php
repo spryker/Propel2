@@ -32,7 +32,7 @@ class JoinTest extends BaseTestCase
      */
     private $savedAdapter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         Propel::init(dirname(__FILE__) . '/../../../../Fixtures/bookstore/build/conf/bookstore-conf.php');
         parent::setUp();

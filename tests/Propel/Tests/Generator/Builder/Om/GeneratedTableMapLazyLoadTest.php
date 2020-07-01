@@ -21,7 +21,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedTableMapLazyLoadTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('\LazyLoadActiveRecord2')) {
             $schema = <<<EOF

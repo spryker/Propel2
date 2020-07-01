@@ -32,7 +32,7 @@ use Propel\Tests\Helpers\Bookstore\BookstoreEmptyTestBase;
  */
 class BookstoreLoggingTest extends BookstoreEmptyTestBase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         PolymorphicRelationLogQuery::create()->deleteAll();

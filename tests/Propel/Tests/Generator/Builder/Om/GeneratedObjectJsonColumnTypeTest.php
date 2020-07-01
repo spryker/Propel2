@@ -22,7 +22,7 @@ use Propel\Tests\TestCase;
  */
 class GeneratedObjectJsonColumnTypeTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('ComplexColumnTypeJsonEntity')) {
             $schema = <<<EOF

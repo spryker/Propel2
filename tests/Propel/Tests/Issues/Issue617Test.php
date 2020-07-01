@@ -23,7 +23,7 @@ class Issue617Test extends PlatformDatabaseBuildTimeBase
      */
     private $updatedBuilder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->removeTables();

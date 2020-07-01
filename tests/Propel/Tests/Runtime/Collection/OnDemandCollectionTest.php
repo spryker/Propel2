@@ -28,7 +28,7 @@ use Propel\Runtime\ActiveQuery\PropelQuery;
  */
 class OnDemandCollectionTest extends BookstoreEmptyTestBase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         BookstoreDataPopulator::populate($this->con);
