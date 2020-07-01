@@ -30,14 +30,6 @@ script:
 
 jobs:
   include:
-
-    - name: "mysql sf ^42"
-      php: 7.4
-      env: DB=mysql
-      install:
-        - rm -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
-        - COMPOSER=./tests/composer/composer-symfony42-min.json composer install
-        - composer show
     - name: "mysql sf ^4.3.0"
       php: 7.4
       env: DB=mysql
