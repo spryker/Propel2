@@ -737,6 +737,28 @@ jobs:
         - COMPOSER=./tests/composer/composer-symfony4-max.json composer install
         - composer show
 
+    - name: Code Climate (Basic Coverage)
+      php: 7.4
+      addons:
+        mariadb: 10.3
+      env:
+        - DB=mysql
+        - MARIADB=10.3
+        - CC_TEST_REPORTER_ID=todo # Add as envvar then remove line. https://docs.codeclimate.com/docs/finding-your-test-coverage-token
+        - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+      install:
+        - composer install -v
+      before_script:
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+        - ./tests/bin/setup.$DB.sh
+      script:
+        - vendor/bin/phpunit -v -c tests/$DB.phpunit.xml --coverage-clover build/logs/clover.xml"
+      after_script:
+        - mv tests/_output/coverage.xml clover.xml
+        - ./cc-test-reporter after-build --coverage-input-type clover --id $CC_TEST_REPORTER_ID --exit-code $TRAVIS_TEST_RESULT
+
   allow_failures:
     - php: nightly
     - name: "PHP 7.4, Agnostic, Symfony ~5"
@@ -751,6 +773,7 @@ jobs:
     - name: "PHP 7.2, Agnostic, Symfony ^5"
     - name: "PHP 7.2, MySql, Symfony ~5"
     - name: "PHP 7.2, MySql, Symfony ^5"
+    - name: Code Climate (Basic Coverage)
 
 
   fast_finish: true
