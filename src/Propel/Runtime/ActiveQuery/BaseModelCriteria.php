@@ -140,7 +140,7 @@ class BaseModelCriteria extends Criteria implements \IteratorAggregate
         if ($this->modelName && !$this->modelTableMapName) {
             $this->modelTableMapName = constant($this->modelName . '::TABLE_MAP');
         }
-        if (!$this->tableMap && $this->modelName) {
+        if ($this->modelName) {
             $this->tableMap = Propel::getServiceContainer()->getDatabaseMap($this->getDbName())->getTableByPhpName($this->modelName);
         }
 

@@ -73,7 +73,7 @@ class Table extends ScopedMappingModel implements IdMethod
     private $phpNamingMethod;
 
     /**
-     * @var Database
+     * @var Database|null
      */
     private $database;
 
@@ -1759,7 +1759,7 @@ class Table extends ScopedMappingModel implements IdMethod
     /**
      * Returns the Database platform.
      *
-     * @return PlatformInterface
+     * @return PlatformInterface|null
      */
     public function getPlatform()
     {

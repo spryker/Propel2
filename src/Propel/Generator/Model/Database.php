@@ -743,9 +743,12 @@ class Database extends ScopedMappingModel
      */
     public function getBuildProperty($name)
     {
-        if ($config = $this->getGeneratorConfig()) {
+        $config = $this->getGeneratorConfig();
+        if ($config) {
             return $config->getConfigProperty($name);
         }
+
+        return '';
     }
 
     /**

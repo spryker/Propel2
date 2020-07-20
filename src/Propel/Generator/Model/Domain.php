@@ -268,7 +268,7 @@ class Domain extends MappingModel
     /**
      * Returns the default value, type-casted for use in PHP OM.
      *
-     * @return mixed
+     * @return mixed|null
      */
     public function getPhpDefaultValue()
     {
