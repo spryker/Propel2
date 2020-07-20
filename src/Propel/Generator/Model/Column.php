@@ -316,7 +316,8 @@ class Column extends MappingModel
      */
     public function getDomain()
     {
-        if (null === $this->domain) {
+        $domain = $this->domain;
+        if ($domain === null) {
             $domain = new Domain();
             $this->domain = $domain;
         }
