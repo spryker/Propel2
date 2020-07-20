@@ -54,7 +54,7 @@ class Index extends MappingModel
     /**
      * Creates a new Index instance.
      *
-     * @param string $name Name of the index
+     * @param string|null $name Name of the index
      */
     public function __construct($name = null)
     {

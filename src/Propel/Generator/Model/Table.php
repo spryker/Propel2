@@ -83,7 +83,7 @@ class Table extends ScopedMappingModel implements IdMethod
     private $referrers;
     private $containsForeignPK;
     /**
-     * @var Column
+     * @var Column|null
      */
     private $inheritanceColumn;
     private $skipSql;
@@ -135,7 +135,7 @@ class Table extends ScopedMappingModel implements IdMethod
     /**
      * Constructs a table object with a name
      *
-     * @param string $name table name
+     * @param string|null $name table name
      */
     public function __construct($name = null)
     {
@@ -673,7 +673,7 @@ class Table extends ScopedMappingModel implements IdMethod
      * Returns the column that subclasses the class representing this
      * table can be produced from.
      *
-     * @return Column
+     * @return Column|null
      */
     public function getChildrenColumn()
     {
@@ -1018,7 +1018,7 @@ class Table extends ScopedMappingModel implements IdMethod
     /**
      * Retrieves the configuration object.
      *
-     * @return \Propel\Generator\Config\GeneratorConfigInterface
+     * @return \Propel\Generator\Config\GeneratorConfigInterface|null
      */
     public function getGeneratorConfig()
     {

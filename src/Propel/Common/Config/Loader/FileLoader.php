@@ -279,7 +279,7 @@ abstract class FileLoader extends BaseFileLoader
      * Scan recursively an array to find a value of a given key.
      *
      * @param string  $property_key The array key
-     * @param array   $config       The array to scan
+     * @param array|null   $config       The array to scan
      * @param boolean $found        if the key was found
      *
      * @return mixed The value or null if not found

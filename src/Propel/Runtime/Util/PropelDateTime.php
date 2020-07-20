@@ -69,9 +69,9 @@ class PropelDateTime extends \DateTime
     public static function createHighPrecision($time = null)
     {
         $dateTime = \DateTime::createFromFormat('U.u', $time ?: self::getMicrotime());
-        
+
         $dateTime->setTimeZone(new \DateTimeZone(date_default_timezone_get()));
-        
+
         return $dateTime;
     }
 
@@ -95,7 +95,7 @@ class PropelDateTime extends \DateTime
      * @param DateTimeZone $timeZone      (optional) timezone
      * @param string       $dateTimeClass The class of the object to create, defaults to DateTime
      *
-     * @return mixed null, or an instance of $dateTimeClass
+     * @return mixed|null An instance of $dateTimeClass
      *
      * @throws PropelException
      */
@@ -110,7 +110,7 @@ class PropelDateTime extends \DateTime
             return null;
         }
         try {
-            if (self::isTimestamp($value)) { // if it's a unix timestamp
+            if (static::isTimestamp($value)) { // if it's a unix timestamp
 
                 $format = 'U';
                 if (strpos($value, '.')) {

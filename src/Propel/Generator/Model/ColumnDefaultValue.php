@@ -35,7 +35,7 @@ class ColumnDefaultValue
      * Creates a new DefaultValue object.
      *
      * @param string $value The default value, as specified in the schema.
-     * @param string $type  The type of default value (DefaultValue::TYPE_VALUE or DefaultValue::TYPE_EXPR)
+     * @param string|null $type  The type of default value (DefaultValue::TYPE_VALUE or DefaultValue::TYPE_EXPR)
      */
     public function __construct($value, $type = null)
     {

@@ -113,7 +113,7 @@ class ForeignKey extends MappingModel
     /**
      * Constructs a new ForeignKey object.
      *
-     * @param string $name
+     * @param string|null $name
      */
     public function __construct($name = null)
     {
