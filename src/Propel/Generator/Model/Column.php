@@ -58,7 +58,7 @@ class Column extends MappingModel
     private $phpType;
 
     /**
-     * @var Domain
+     * @var Domain|null
      */
     private $domain;
     /**
@@ -317,10 +317,11 @@ class Column extends MappingModel
     public function getDomain()
     {
         if (null === $this->domain) {
-            $this->domain = new Domain();
+            $domain = new Domain();
+            $this->domain = $domain;
         }
 
-        return $this->domain;
+        return $domain;
     }
 
     /**
@@ -1022,7 +1023,7 @@ class Column extends MappingModel
      */
     public function clearReferrers()
     {
-        $this->referrers = null;
+        $this->referrers = [];
     }
 
     /**
@@ -1474,7 +1475,7 @@ class Column extends MappingModel
      */
     public function __clone()
     {
-        $this->referrers = null;
+        $this->referrers = [];
         if ($this->domain) {
             $this->domain = clone $this->domain;
         }
