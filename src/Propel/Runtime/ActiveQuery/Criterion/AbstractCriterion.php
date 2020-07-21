@@ -231,7 +231,7 @@ abstract class AbstractCriterion
      * Append an AND Criterion onto this Criterion's list.
      *
      * @param  AbstractCriterion       $criterion
-     * @return $this|AbstractCriterion
+     * @return $this
      */
     public function addAnd(AbstractCriterion $criterion)
     {
@@ -245,7 +245,7 @@ abstract class AbstractCriterion
      * Append an OR Criterion onto this Criterion's list.
      *
      * @param  AbstractCriterion       $criterion
-     * @return $this|AbstractCriterion
+     * @return $this
      */
     public function addOr(AbstractCriterion $criterion)
     {

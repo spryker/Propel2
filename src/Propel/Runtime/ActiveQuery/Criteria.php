@@ -345,7 +345,7 @@ class Criteria
      * @param string $name   Wanted Name of the column (alias).
      * @param string $clause SQL clause to select from the table
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addAsColumn($name, $clause)
     {
@@ -387,7 +387,7 @@ class Criteria
      * @param string $alias
      * @param string $table
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addAlias($alias, $table)
     {
@@ -401,7 +401,7 @@ class Criteria
      *
      * @param string $alias
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function removeAlias($alias)
     {
@@ -761,7 +761,7 @@ class Criteria
      *
      * @param  string         $key
      * @param  mixed          $value
-     * @return $this|Criteria Instance of self.
+     * @return $this Instance of self.
      */
     public function put($key, $value)
     {
@@ -808,11 +808,11 @@ class Criteria
      * The name of the table must be used implicitly in the column name,
      * so the Column name must be something like 'TABLE.id'.
      *
-     * @param string $p1         The column to run the comparison on, or a Criterion object.
+     * @param string|AbstractCriterion $p1         The column to run the comparison on, or a Criterion object.
      * @param mixed  $value
-     * @param string $comparison A String.
+     * @param string|int|null $comparison A String.
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function add($p1, $value = null, $comparison = null)
     {
@@ -854,7 +854,7 @@ class Criteria
      * @param mixed  $value
      * @param string $comparison A String.
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addCond($name, $p1, $value = null, $comparison = null)
     {
@@ -869,7 +869,7 @@ class Criteria
      * @param  array          $criterions array of the name of the criterions to combine
      * @param  string         $operator   logical operator, either Criteria::LOGICAL_AND, or Criteria::LOGICAL_OR
      * @param  string         $name       optional name to combine the criterion later
-     * @return $this|Criteria
+     * @return $this
      */
     public function combine($criterions = [], $operator = self::LOGICAL_AND, $name = null)
     {
@@ -910,7 +910,7 @@ class Criteria
      *                        among Criteria::INNER_JOIN, Criteria::LEFT_JOIN,
      *                        and Criteria::RIGHT_JOIN
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addJoin($left, $right, $joinType = null)
     {
@@ -968,7 +968,7 @@ class Criteria
      * @param array  $conditions An array of conditions, each condition being an array (left, right, operator)
      * @param string $joinType   A String with the join operator. Defaults to an implicit join.
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addMultipleJoin($conditions, $joinType = null)
     {
@@ -1030,7 +1030,7 @@ class Criteria
      *
      * @param Join $join A join object
      *
-     * @return $this|Criteria A modified Criteria object
+     * @return $this A modified Criteria object
      */
     public function addJoinObject(Join $join)
     {
@@ -1078,7 +1078,7 @@ class Criteria
      * @param Criteria $subQueryCriteria Criteria to build the subquery from
      * @param string   $alias            alias for the subQuery
      *
-     * @return $this|Criteria this modified Criteria object (Fluid API)
+     * @return $this this modified Criteria object (Fluid API)
      */
     public function addSelectQuery(Criteria $subQueryCriteria, $alias = null)
     {
@@ -1144,7 +1144,7 @@ class Criteria
 
     /**
      * Adds 'ALL' modifier to the SQL statement.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function setAll()
     {
@@ -1156,7 +1156,7 @@ class Criteria
 
     /**
      * Adds 'DISTINCT' modifier to the SQL statement.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function setDistinct()
     {
@@ -1172,7 +1172,7 @@ class Criteria
      *
      * @param string $modifier The modifier to add
      *
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function addSelectModifier($modifier)
     {
@@ -1190,7 +1190,7 @@ class Criteria
      *
      * @param string $modifier The modifier to add
      *
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function removeSelectModifier($modifier)
     {
@@ -1215,7 +1215,7 @@ class Criteria
      * Sets ignore case.
      *
      * @param  boolean        $b True if case should be ignored.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function setIgnoreCase($b)
     {
@@ -1244,7 +1244,7 @@ class Criteria
      * should be using setLimit(1).
      *
      * @param  boolean        $b Set to TRUE if you expect the query to select just one record.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function setSingleRecord($b)
     {
@@ -1267,7 +1267,7 @@ class Criteria
      * Set limit.
      *
      * @param  int            $limit An int with the value for limit.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function setLimit($limit)
     {
@@ -1290,7 +1290,7 @@ class Criteria
      * Set offset.
      *
      * @param  int            $offset An int with the value for offset.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function setOffset($offset)
     {
@@ -1313,7 +1313,7 @@ class Criteria
      * Add select column.
      *
      * @param  string         $name Name of the select column.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function addSelectColumn($name)
     {
@@ -1326,7 +1326,7 @@ class Criteria
      * Set the query comment, that appears after the first verb in the SQL query
      *
      * @param  string         $comment The comment to add to the query, without comment sign
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function setComment($comment = null)
     {
@@ -1372,7 +1372,7 @@ class Criteria
     /**
      * Clears current select columns.
      *
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function clearSelectColumns()
     {
@@ -1395,7 +1395,7 @@ class Criteria
      * Add group by column name.
      *
      * @param  string         $groupBy The name of the column to group by.
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addGroupByColumn($groupBy)
     {
@@ -1408,7 +1408,7 @@ class Criteria
      * Add order by column name, explicitly specifying ascending.
      *
      * @param  string         $name The name of the column to order by.
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addAscendingOrderByColumn($name)
     {
@@ -1421,7 +1421,7 @@ class Criteria
      * Add order by column name, explicitly specifying descending.
      *
      * @param  string         $name The name of the column to order by.
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function addDescendingOrderByColumn($name)
     {
@@ -1443,7 +1443,7 @@ class Criteria
     /**
      * Clear the order-by columns.
      *
-     * @return $this|Criteria Modified Criteria object (for fluent API)
+     * @return $this Modified Criteria object (for fluent API)
      */
     public function clearOrderByColumns()
     {
@@ -1455,7 +1455,7 @@ class Criteria
     /**
      * Clear the group-by columns.
      *
-     * @return $this|Criteria
+     * @return $this
      */
     public function clearGroupByColumns()
     {
@@ -1496,6 +1496,7 @@ class Criteria
             return null;
         }
 
+        /** @var AbstractCriterion|null */
         $removed = $this->map[$key];
         unset($this->map[$key]);
         if ($removed instanceof AbstractCriterion) {
@@ -1616,7 +1617,7 @@ class Criteria
      *                           Defaults to Criteria::LOGICAL_AND, also accepts Criteria::LOGICAL_OR
      *                           This parameter is deprecated, use _or() instead
      *
-     * @return $this|Criteria The current criteria object
+     * @return $this The current criteria object
      */
     public function mergeWith(Criteria $criteria, $operator = null)
     {
@@ -1712,7 +1713,7 @@ class Criteria
      * @param mixed $value      The value to bind in the condition
      * @param mixed $comparison A PDO::PARAM_ class constant
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addHaving($p1, $value = null, $comparison = null)
     {
@@ -1766,7 +1767,7 @@ class Criteria
      *  - addAnd(column, value)
      *  - addAnd(Criterion)
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addAnd($p1, $p2 = null, $p3 = null, $preferColumnCondition = true)
     {
@@ -1800,7 +1801,7 @@ class Criteria
      * @param mixed $p2
      * @param mixed $p3
      * @param bool $preferColumnCondition
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addOr($p1, $p2 = null, $p3 = null, $preferColumnCondition = true)
     {
@@ -1830,7 +1831,7 @@ class Criteria
     *                      (necessary for Propel 1.4 compatibility).
      *                     If false, the condition is combined with the last existing condition.
      *
-     * @return $this|Criteria A modified Criteria object.
+     * @return $this A modified Criteria object.
      */
     public function addUsingOperator($p1, $value = null, $operator = null, $preferColumnCondition = true)
     {
@@ -2467,7 +2468,7 @@ class Criteria
                 $stmt = null; // close
 
             } catch (\Exception $e) {
-                if ($stmt) {
+                if ($stmt !== null) {
                     $stmt = null; // close
                 }
                 Propel::log($e->getMessage(), Propel::LOG_ERR);
@@ -2502,6 +2503,7 @@ class Criteria
     public function doCount(ConnectionInterface $con = null)
     {
         $dbMap = Propel::getServiceContainer()->getDatabaseMap($this->getDbName());
+        /** @var \Propel\Runtime\Adapter\SqlAdapterInterface $db */
         $db = Propel::getServiceContainer()->getAdapter($this->getDbName());
 
         if (null === $con) {
@@ -2688,7 +2690,7 @@ class Criteria
      *
      * @param boolean $cond
      *
-     * @return PropelConditionalProxy|$this|Criteria
+     * @return PropelConditionalProxy|$this
      */
     public function _if($cond)
     {
@@ -2703,7 +2705,7 @@ class Criteria
      *
      * @param boolean $cond ignored
      *
-     * @return PropelConditionalProxy|$this|Criteria
+     * @return PropelConditionalProxy|$this
      */
     public function _elseif($cond)
     {
@@ -2718,7 +2720,7 @@ class Criteria
      * Returns a PropelConditionalProxy instance.
      * Allows for conditional statements in a fluid interface.
      *
-     * @return PropelConditionalProxy|$this|Criteria
+     * @return PropelConditionalProxy|$this
      */
     public function _else()
     {
@@ -2733,7 +2735,7 @@ class Criteria
      * Returns the current object
      * Allows for conditional statements in a fluid interface.
      *
-     * @return $this|Criteria
+     * @return $this
      */
     public function _endif()
     {

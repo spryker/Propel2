@@ -124,20 +124,20 @@ abstract class FileLoader extends BaseFileLoader
             return ($ext === $extension);
         }
 
-        if (is_array($ext)) {
-            $supported = false;
-
-            foreach ($ext as $value) {
-                if ($value === $extension) {
-                    $supported = true;
-                    break;
-                }
-            }
-
-            return $supported;
+        if (!is_array($ext)) {
+            throw new \InvalidArgumentException('$ext must string or string[]');
         }
 
-        return false;
+        $supported = false;
+
+        foreach ($ext as $value) {
+            if ($value === $extension) {
+                $supported = true;
+                break;
+            }
+        }
+
+        return $supported;
     }
 
     private function isResolved()
