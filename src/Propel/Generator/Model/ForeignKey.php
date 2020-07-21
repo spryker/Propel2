@@ -169,7 +169,7 @@ class ForeignKey extends MappingModel
     /**
      * Returns the normalized input of onDelete and onUpdate behaviors.
      *
-     * @param  string $behavior
+     * @param  string|null $behavior
      * @return string
      */
     public function normalizeFKey($behavior)
@@ -255,7 +255,7 @@ class ForeignKey extends MappingModel
     /**
      * Sets the onUpdate behavior.
      *
-     * @param string $behavior
+     * @param string|null $behavior
      */
     public function setOnUpdate($behavior)
     {

@@ -206,6 +206,9 @@ class Criteria
      */
     protected $joins = [];
 
+    /**
+     * @var Criteria[]
+     */
     protected $selectQueries = [];
 
     /**
@@ -222,16 +225,23 @@ class Criteria
      */
     protected $primaryTableName;
 
-    /** The name of the database as given in the constructor. */
+    /**
+     * The name of the database as given in the constructor.
+     * @var string|null
+     */
     protected $originalDbName;
 
     /**
      * To limit the number of rows to return.  <code>-1</code> means return all
      * rows.
+     * @var int
      */
     protected $limit = -1;
 
-    /** To start the results at a row other than the first one. */
+    /**
+     * To start the results at a row other than the first one.
+     * @var int
+     */
     protected $offset = 0;
 
     /**
@@ -246,7 +256,7 @@ class Criteria
 
     /**
      * Storage for Criterions expected to be combined
-     * @var array
+     * @var AbstractCriterion[]
      */
     protected $namedCriterions = [];
 
@@ -258,16 +268,16 @@ class Criteria
     protected $defaultCombineOperator = Criteria::LOGICAL_AND;
 
     /**
-     * @var PropelConditionalProxy
+     * @var PropelConditionalProxy|null
      */
-    protected $conditionalProxy = null;
+    protected $conditionalProxy;
 
     /**
      * Whether identifier should be quoted.
      *
      * @var boolean
      */
-    protected $identifierQuoting = null;
+    protected $identifierQuoting = false;
 
     /**
      * @var array
@@ -555,8 +565,8 @@ class Criteria
      * Criterions to form a more complex where clause.
      *
      * @param  string            $column     Full name of column (for example TABLE.COLUMN).
-     * @param  mixed             $value
-     * @param  string            $comparison Criteria comparison constant or PDO binding type
+     * @param  mixed|null            $value
+     * @param  string|int            $comparison Criteria comparison constant or PDO binding type
      * @return AbstractCriterion
      */
     public function getNewCriterion($column, $value = null, $comparison = self::EQUAL)
@@ -894,8 +904,8 @@ class Criteria
      * // LEFT JOIN FOO ON (PROJECT.ID = FOO.PROJECT_ID)
      * </code>
      *
-     * @param mixed $left     A String with the left side of the join.
-     * @param mixed $right    A String with the right side of the join.
+     * @param string|array $left     A String with the left side of the join.
+     * @param string|array $right    A String with the right side of the join.
      * @param mixed $joinType A String with the join operator
      *                        among Criteria::INNER_JOIN, Criteria::LEFT_JOIN,
      *                        and Criteria::RIGHT_JOIN
@@ -921,13 +931,13 @@ class Criteria
         $dotpos = strrpos($left, '.');
         $leftTableAlias = substr($left, 0, $dotpos);
         $leftColumnName = substr($left, $dotpos + 1);
-        list($leftTableName, $leftTableAlias) = $this->getTableNameAndAlias($leftTableAlias);
+        [$leftTableName, $leftTableAlias] = $this->getTableNameAndAlias($leftTableAlias);
 
         // is the right table an alias ?
         $dotpos = strrpos($right, '.');
         $rightTableAlias = substr($right, 0, $dotpos);
         $rightColumnName = substr($right, $dotpos + 1);
-        list($rightTableName, $rightTableAlias) = $this->getTableNameAndAlias($rightTableAlias);
+        [$rightTableName, $rightTableAlias] = $this->getTableNameAndAlias($rightTableAlias);
 
         $join->addExplicitCondition(
             $leftTableName, $leftColumnName, $leftTableAlias,
@@ -972,9 +982,9 @@ class Criteria
             if ($pos) {
                 $leftTableAlias = substr($left, 0, $pos);
                 $leftColumnName = substr($left, $pos + 1);
-                list($leftTableName, $leftTableAlias) = $this->getTableNameAndAlias($leftTableAlias);
+                [$leftTableName, $leftTableAlias] = $this->getTableNameAndAlias($leftTableAlias);
             } else {
-                list($leftTableName, $leftTableAlias) = [null, null];
+                [$leftTableName, $leftTableAlias] = [null, null];
                 $leftColumnName = $left;
             }
 
@@ -982,9 +992,9 @@ class Criteria
             if ($pos) {
                 $rightTableAlias = substr($right, 0, $pos);
                 $rightColumnName = substr($right, $pos + 1);
-                list($rightTableName, $rightTableAlias) = $this->getTableNameAndAlias($rightTableAlias);
+                [$rightTableName, $rightTableAlias] = $this->getTableNameAndAlias($rightTableAlias);
             } else {
-                list($rightTableName, $rightTableAlias) = [null, null];
+                [$rightTableName, $rightTableAlias] = [null, null];
                 $rightColumnName = $right;
             }
 
@@ -1467,7 +1477,7 @@ class Criteria
     /**
      * Get Having Criterion.
      *
-     * @return AbstractCriterion A Criterion object that is the having clause.
+     * @return AbstractCriterion|null A Criterion object that is the having clause.
      */
     public function getHaving()
     {
@@ -1478,7 +1488,7 @@ class Criteria
      * Remove an object from the criteria.
      *
      * @param  string $key A string with the key to be removed.
-     * @return mixed  The removed value.
+     * @return mixed|null  The removed value.
      */
     public function remove($key)
     {
@@ -1996,7 +2006,7 @@ class Criteria
         if ($this->hasSelectQueries()) {
             foreach ($fromClause as $key => $ftable) {
                 if (false !== strpos($ftable, ' ')) {
-                    list(, $tableName) = explode(' ', $ftable);
+                    [, $tableName] = explode(' ', $ftable);
                 } else {
                     $tableName = $ftable;
                 }

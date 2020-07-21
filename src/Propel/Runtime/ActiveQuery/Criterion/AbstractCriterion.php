@@ -321,11 +321,12 @@ abstract class AbstractCriterion
         /** @var AbstractCriterion $crit */
         $crit = $obj;
 
-        $isEquiv = (((null === $this->table && null === $crit->getTable())
+        $isEquiv = (
+            ((null === $this->table && null === $crit->getTable())
             || (null !== $this->table && $this->table === $crit->getTable()))
             && $this->column === $crit->getColumn()
-            && $this->comparison === $crit->getComparison())
-        ;
+            && $this->comparison === $crit->getComparison()
+        );
 
         // check chained criterion
 

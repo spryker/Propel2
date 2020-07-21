@@ -64,6 +64,9 @@ class ModelCriteria extends BaseModelCriteria
 
     protected $useAliasInSQL = false;
 
+    /**
+     * @var \Propel\Runtime\ActiveQuery\ModelCriteria|null
+     */
     protected $primaryCriteria;
 
     protected $isWithOneToMany = false;
@@ -75,12 +78,18 @@ class ModelCriteria extends BaseModelCriteria
     protected $isKeepQuery = true;
 
     // this is for the select method
+    /**
+     * @var string|array|null
+     */
     protected $select;
 
     // temporary property used in replaceNames
     protected $currentAlias;
 
-    protected $foundMatch;
+    /**
+     * @var bool
+     */
+    protected $foundMatch = false;
 
     /**
      * Used to memorize whether we added self-select columns before.
@@ -248,7 +257,7 @@ class ModelCriteria extends BaseModelCriteria
      */
     public function orderBy($columnName, $order = Criteria::ASC)
     {
-        list(, $realColumnName) = $this->getColumnFromName($columnName, false);
+        [, $realColumnName] = $this->getColumnFromName($columnName, false);
         $order = strtoupper($order);
         switch ($order) {
             case Criteria::ASC:
@@ -291,7 +300,7 @@ class ModelCriteria extends BaseModelCriteria
         }
 
         foreach ($columnName as $column) {
-            list(, $realColumnName) = $this->getColumnFromName($column, false);
+            [, $realColumnName] = $this->getColumnFromName($column, false);
             $this->addGroupByColumn($realColumnName);
         }
 
@@ -474,7 +483,7 @@ class ModelCriteria extends BaseModelCriteria
     public function join($relation, $joinType = Criteria::INNER_JOIN)
     {
         // relation looks like '$leftName.$relationName $relationAlias'
-        list($fullName, $relationAlias) = self::getClassAndAlias($relation);
+        [$fullName, $relationAlias] = self::getClassAndAlias($relation);
         if (false === strpos($fullName, '.')) {
             // simple relation name, refers to the current table
             $leftName = $this->getModelAliasOrName();
@@ -482,7 +491,7 @@ class ModelCriteria extends BaseModelCriteria
             $previousJoin = $this->getPreviousJoin();
             $tableMap = $this->getTableMap();
         } else {
-            list($leftName, $relationName) = explode('.', $fullName);
+            [$leftName, $relationName] = explode('.', $fullName);
             $shortLeftName = self::getShortName($leftName);
             // find the TableMap for the left table using the $leftName
             if ($leftName === $this->getModelAliasOrName() || $leftName === $this->getModelShortName()) {
@@ -819,7 +828,7 @@ class ModelCriteria extends BaseModelCriteria
     /**
      * Gets the primary criteria for this secondary Criteria
      *
-     * @return ModelCriteria The primary criteria
+     * @return ModelCriteria|null The primary criteria
      */
     public function getPrimaryCriteria()
     {
@@ -905,7 +914,7 @@ class ModelCriteria extends BaseModelCriteria
     public static function getClassAndAlias($class)
     {
         if (false !== strpos($class, ' ')) {
-            list($class, $alias) = explode(' ', $class);
+            [$class, $alias] = explode(' ', $class);
         } else {
             $alias = null;
         }
@@ -926,13 +935,13 @@ class ModelCriteria extends BaseModelCriteria
     public static function getRelationName($relation)
     {
         // get the relationName
-        list($fullName, $relationAlias) = self::getClassAndAlias($relation);
+        [$fullName, $relationAlias] = self::getClassAndAlias($relation);
         if ($relationAlias) {
             $relationName = $relationAlias;
         } elseif (false === strpos($fullName, '.')) {
             $relationName = $fullName;
         } else {
-            list(, $relationName) = explode('.', $fullName);
+            [, $relationName] = explode('.', $fullName);
         }
 
         return $relationName;
@@ -1855,14 +1864,14 @@ class ModelCriteria extends BaseModelCriteria
     protected function doReplaceNameInExpression($matches)
     {
         $key = $matches[0];
-        list($column, $realFullColumnName) = $this->getColumnFromName($key);
+        [$column, $realFullColumnName] = $this->getColumnFromName($key);
 
         if ($column instanceof ColumnMap) {
             $this->replacedColumns[] = $column;
             $this->foundMatch = true;
 
             if (false !== strpos($key, '.')) {
-                list($tableName, $columnName) = explode('.', $key);
+                [$tableName, $columnName] = explode('.', $key);
                 $realColumnName = substr($realFullColumnName, strrpos($realFullColumnName, '.') + 1);
                 if (isset($this->aliases[$tableName])) {
                     //don't replace a alias with their real table name
@@ -1898,7 +1907,7 @@ class ModelCriteria extends BaseModelCriteria
             $prefix = $this->getModelAliasOrName();
         } else {
             // $prefix could be either class name or table name
-            list($prefix, $phpName) = explode('.', $phpName);
+            [$prefix, $phpName] = explode('.', $phpName);
         }
 
         $shortClass = self::getShortName($prefix);

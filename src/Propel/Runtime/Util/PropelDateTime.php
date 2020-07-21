@@ -50,9 +50,9 @@ class PropelDateTime extends \DateTime
             return true;
         }
 
-        $month = date('m', $value);
-        $day   = date('d', $value);
-        $year  = date('Y', $value);
+        $month = (int)date('m', $value);
+        $day   = (int)date('d', $value);
+        $year  = (int)date('Y', $value);
 
         return checkdate($month, $day, $year);
     }

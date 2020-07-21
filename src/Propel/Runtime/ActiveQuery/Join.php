@@ -79,7 +79,7 @@ class Join
      *
      * @param string|array|null $leftColumn  The left column of the join condition
      *                            (may contain an alias name)
-     * @param string|null $rightColumn The right column of the join condition
+     * @param string|array|null $rightColumn The right column of the join condition
      *                            (may contain an alias name)
      * @param string|null $joinType    The type of the join. Valid join types are null (implicit join),
      *                            Criteria::LEFT_JOIN, Criteria::RIGHT_JOIN, and Criteria::INNER_JOIN

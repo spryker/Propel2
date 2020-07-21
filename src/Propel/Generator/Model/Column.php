@@ -105,7 +105,7 @@ class Column extends MappingModel
      *
      * @param string|null $name The column's name
      * @param string|null $type The column's type
-     * @param string|null $size The column's size
+     * @param string|int|null $size The column's size
      */
     public function __construct($name = null, $type = null, $size = null)
     {
@@ -120,7 +120,7 @@ class Column extends MappingModel
         }
 
         if (null !== $size) {
-            $this->setSize($size);
+            $this->setSize((int)$size);
         }
 
         $this->isAutoIncrement            = false;
@@ -1306,7 +1306,7 @@ class Column extends MappingModel
     /**
      * Sets a string that will give this column a default value.
      *
-     * @param ColumnDefaultValue|string $defaultValue The column's default value
+     * @param ColumnDefaultValue|string|null $defaultValue The column's default value
      * @return void
      */
     public function setDefaultValue($defaultValue)
