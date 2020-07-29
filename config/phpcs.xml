@@ -33,7 +33,7 @@
         <severity>0</severity>
     </rule>
 
-    <rule ref="Spryker.Commenting.DocBlockReturnSelf">
+    <rule ref="Spryker.Commenting.DocBlockReturnSelf.InvalidChainable">
         <severity>0</severity>
     </rule>
 
