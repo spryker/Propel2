@@ -16,12 +16,12 @@
     /**
     * The related Propel class for this table
     */
-    const OM_CLASS = '<?php echo $tablePhpName ?>';
+    public const OM_CLASS = '<?php echo $omClassName ?>';
 
     /**
     * The PHP name of this class (PascalCase)
     */
-    public const OM_CLASS = '<?php echo $omClassName ?>';
+    public const TABLE_PHP_NAME = '<?php echo $tablePhpName ?>';
 
     /**
      * A class that can be returned by this tableMap
