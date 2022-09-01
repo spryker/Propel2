@@ -44,6 +44,9 @@
             "Propel\\": "src/Propel/"
         }
     },
+    "replace": {
+        "propel/propel": "2.0.0-beta1"
+    },
     "bin": [
         "bin/propel"
     ],
@@ -70,4 +73,4 @@
     "config": {
         "process-timeout": 0
     }
-}
+},
