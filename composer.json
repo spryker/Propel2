@@ -44,9 +44,6 @@
             "Propel\\": "src/Propel/"
         }
     },
-    "replace": {
-        "propel/propel": "*"
-    },
     "bin": [
         "bin/propel"
     ],
