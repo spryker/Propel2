@@ -45,7 +45,7 @@
         }
     },
     "replace": {
-        "propel/propel": "2.0.0-beta1"
+        "propel/propel": "*"
     },
     "bin": [
         "bin/propel"
