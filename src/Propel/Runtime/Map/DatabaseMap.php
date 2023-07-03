@@ -49,14 +49,14 @@ class DatabaseMap
     /**
      * Tables in the database, using table name as key
      *
-     * @var array<\Propel\Runtime\Map\TableMap|class-string<\Propel\Runtime\Map\TableMap>>
+     * @var \Propel\Runtime\Map\TableMap[]
      */
     protected $tables = [];
 
     /**
      * Tables in the database, using table phpName as key
      *
-     * @var array<\Propel\Runtime\Map\TableMap|class-string<\Propel\Runtime\Map\TableMap>>
+     * @var \Propel\Runtime\Map\TableMap[]
      */
     protected $tablesByPhpName = [];
 
@@ -179,6 +179,11 @@ class DatabaseMap
         $this->registeredTables = array_unique(array_merge($this->registeredTables, $tableMapClasses));
     }
 
+    /**
+     * Tries to resolve a table by the name via PHP name class.
+     *
+     * @return bool if the table was resolved by the name
+     */
     protected function loadTableMap($name): bool
     {
         if ($this->loadedTables) {
@@ -199,6 +204,11 @@ class DatabaseMap
         return $this->resolvedTableNames[$name];
     }
 
+    /**
+     * Loads all registered tables classes and fills in name and PHP name lookup indices.
+     *
+     * @return void
+     */
     protected function loadTableMaps(): void
     {
         if ($this->loadedTables) {
