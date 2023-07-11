@@ -28,6 +28,27 @@ use Propel\Runtime\Propel;
 class DatabaseMap
 {
     /**
+     * True if all tables were loaded.
+     *
+     * @var bool
+     */
+    protected $loadedTables = false;
+
+    /**
+     * Holds all registered tables.
+     *
+     * @var array<int, class-string>
+     */
+    protected $registeredTables = [];
+
+    /**
+     * SHows if the table was successfully resolved by its name.
+     *
+     * @var array<string, bool>
+     */
+    protected $resolvedTableNames = [];
+
+    /**
      * Name of the database.
      *
      * @var string
@@ -164,7 +185,47 @@ class DatabaseMap
      */
     public function registerTableMapClasses(array $tableMapClasses): void
     {
-        array_map([$this, 'registerTableMapClass'], $tableMapClasses);
+        $this->registeredTables = array_unique(array_merge($this->registeredTables, $tableMapClasses));
+    }
+
+    /**
+     * Tries to resolve a table by the name via PHP name class.
+     *
+     * @return bool if the table was resolved by the name
+     */
+    protected function loadTableMap($name): bool
+    {
+        if ($this->loadedTables) {
+            return true;
+        }
+        if (isset($this->resolvedTableNames[$name])) {
+            return $this->resolvedTableNames[$name];
+        }
+        $className = ucfirst(str_replace('_', '', ucwords($name, '_')));
+        $className .= 'TableMap';
+        $results = array_filter($this->registeredTables, function ($registeredTableName) use ($className) {
+            return str_ends_with($registeredTableName, $className);
+        });
+
+        array_map([$this, 'registerTableMapClass'], $results);
+        $this->resolvedTableNames[$name] = count($results) > 0;
+
+        return $this->resolvedTableNames[$name];
+    }
+
+    /**
+     * Loads all registered tables classes and fills in name and PHP name lookup indices.
+     *
+     * @return void
+     */
+    protected function loadTableMaps(): void
+    {
+        if ($this->loadedTables) {
+            return;
+        }
+
+        array_map([$this, 'registerTableMapClass'], $this->registeredTables);
+        $this->loadedTables = true;
     }
 
     /**
@@ -180,7 +241,11 @@ class DatabaseMap
             $name = substr($name, 0, strpos($name, '.'));
         }
 
-        return isset($this->tables[$name]);
+        if (isset($this->tables[$name])) {
+            return true;
+        }
+
+        return $this->loadTableMap($name) && isset($this->tables[$name]);
     }
 
     /**
@@ -195,7 +260,14 @@ class DatabaseMap
     public function getTable($name)
     {
         if (!isset($this->tables[$name])) {
-            throw new TableNotFoundException(sprintf('Cannot fetch TableMap for undefined table `%s` in database `%s`.', $name, $this->getName()));
+            $this->loadTableMap($name);
+            if (!isset($this->tables[$name])) {
+                $this->loadTableMaps();
+            }
+
+            if (!isset($this->tables[$name])) {
+                throw new TableNotFoundException(sprintf('Cannot fetch TableMap for undefined table `%s` in database `%s`.', $name, $this->getName()));
+            }
         }
 
         $tableOrClass = $this->tables[$name];
